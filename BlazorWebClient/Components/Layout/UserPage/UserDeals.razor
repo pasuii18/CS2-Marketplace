@@ -1,0 +1,47 @@
+﻿<div class="container sm-6">
+    <div class="row">
+        @foreach (var deal in Deals)
+        {
+            <div class="col-md-3">
+                <div class="card mb-2 shadow-sm">
+                    <img class="card-img-top" style="width: 290px; height: 220px" @onclick="(() => RedirectToItem(deal.IdItem))" src=@($"{UserService.BaseUrl}/ItemsPictures/{deal.IdItemPicture}")>
+                    <div class="card-body">
+                        <h6 class="card-title">@deal.ItemTypeName / @deal.ItemClassName</h6>
+                        <h5 class="card-title" style="@StyleHelper.GetRarityColor(deal.Rarity)">@deal.ItemSubClassName | @deal.SkinName</h5>
+                        <h4 class="card-text">Price: @deal.Price$</h4>
+                        <div class="row">
+                            <button class="btn btn-dark mb-1" @onclick="() => RedirectToDealOffers(deal.IdDeal)">Offers</button>
+                            @if (deal.UserUUID == UserService.UserUUID)
+                            {
+                                <button class="btn btn-dark" style="background-color: red; color: white;" @onclick="() => DeleteDealHandler(deal.IdDeal)">Delete Deal</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public List<DealReadDto> Deals { get; set; }
+    
+    private async Task DeleteDealHandler(int id)
+    {
+        HttpResponseMessage response = await UserService.HttpClient.DeleteAsync($"{UserService.BaseUrl}/deals/{id}");
+        await MessageService.ShowMessage(response);
+        if (response.IsSuccessStatusCode)
+        {
+            StateHasChanged();
+        }
+    }
+    private void RedirectToItem(int id)
+    {
+        NavManager.NavigateTo($"/items/{id}");
+    }
+    private void RedirectToDealOffers(int dealId)
+    {
+        NavManager.NavigateTo($"deals/{dealId}/offers");
+    }
+}

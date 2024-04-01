@@ -1,0 +1,70 @@
+﻿<EditForm Model="@UserUpdateDto" FormName="updateUserForm" OnSubmit="UpdateUserSubmit">
+    <div class="row">
+        <div class="col-md-3">
+            <img src="data:image/jpeg;base64,@Convert.ToBase64String(UploadedPicture)" style="width: 310px; height: 310px;" class="img rounded mb-3" alt="There will be picture preview =)" id="profilePicture" />
+            <div class="mb-3">
+                <InputFile type="floatingInput" class="form-control" accept=".jpg, .jpeg, .png, .gif, .bmp, .webp" id="image" placeholder="File" @bind-Value="UserUpdateDto.UserPicture" OnChange="HandleFileUpload" />
+            </div>
+        </div>
+        <div class="col-md-9">
+            <input type="text" class="form-control mb-1" placeholder="@User.Username" style="font-size: 26px;" @bind="@UserUpdateDto.Username" />
+            <h2 class="card-title mb-2" style="font-size: 32px; @StyleHelper.GetRoleColor(User.Role)">@User.Role</h2>
+            <input type="text" class="form-control mb-4" placeholder="@User.Description" style="font-size: 26px;" @bind="@UserUpdateDto.Description" />
+
+            <input type="text" class="form-control mb-1" placeholder="New Login" style="font-size: 26px;" @bind="@UserUpdateDto.NewLogin" />
+            <input type="password" class="form-control mb-4" placeholder="New Password" style="font-size: 26px;" @bind="@UserUpdateDto.NewPassword" />
+
+            <input type="password" class="form-control mb-1" placeholder="Current Password (Required)" style="font-size: 26px;" @bind="@UserUpdateDto.OldPassword" />
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-dark">Update</button>
+</EditForm>
+
+@code{
+    [Parameter]
+    public UserProfileDto User { get; set; }
+    UserUpdateDto UserUpdateDto = new UserUpdateDto();
+    byte[] UploadedPicture = new byte[] { 1 };
+    
+    private async Task UpdateUserSubmit()
+    {
+        var formData = new MultipartFormDataContent();
+        formData.Add(new StringContent(UserUpdateDto.IdUserProfilePicture == 0 ? string.Empty : UserUpdateDto.IdUserProfilePicture.ToString()), "IdUserProfilePicture");
+        formData.Add(new StringContent(User.Username ?? string.Empty), "Username");
+        formData.Add(new StringContent(UserUpdateDto.Description ?? string.Empty), "Description");
+        formData.Add(new StringContent(UserUpdateDto.NewLogin ?? string.Empty), "NewLogin");
+        formData.Add(new StringContent(UserUpdateDto.NewPassword ?? string.Empty), "NewPassword");
+        formData.Add(new StringContent(UserUpdateDto.OldPassword ?? string.Empty), "OldPassword");
+
+        if (UserUpdateDto.UserPicture != null)
+        {
+            formData.Add(new StreamContent(UserUpdateDto.UserPicture.OpenReadStream()), "UserPicture", UserUpdateDto.UserPicture.Name);
+            Console.WriteLine("stream");
+        }
+        else
+        {
+            formData.Add(new StringContent(string.Empty), "UserPicture");
+            Console.WriteLine("null");
+        }
+
+        HttpResponseMessage response = await UserService.HttpClient.PutAsync($"{UserService.BaseUrl}/users", formData);
+        await MessageService.ShowMessage(response);
+    }
+    private async Task HandleFileUpload(InputFileChangeEventArgs e)
+    {
+        if (e.File.Size <= 512000)
+        {
+            UserUpdateDto.UserPicture = e.File;
+            using (var memoryStream = new MemoryStream())
+            {
+                await UserUpdateDto.UserPicture.OpenReadStream().CopyToAsync(memoryStream);
+                UploadedPicture = memoryStream.ToArray();
+            }
+        }
+        else
+        {
+            MessageService.ShowMessage("Max size of picture is 512 KB. Sorry :(");
+        }
+    }
+}

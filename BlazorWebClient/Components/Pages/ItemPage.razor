@@ -1,0 +1,68 @@
+﻿@page "/items/{id}"
+@rendermode InteractiveServer
+
+@if (Item == null)
+{
+    <p>Sorry. There is no info yet!</p>
+}
+else
+{
+    <div class="container">
+        <BlazorWebClient.Components.Layout.ItemPage.ItemInfo Item="Item"></BlazorWebClient.Components.Layout.ItemPage.ItemInfo>
+        
+        <hr />
+        @if (itemHistory.Count == 0)
+        {
+            <h2>No one buying this item. Sad =(</h2>
+        }
+        else
+        {
+            <BlazorWebClient.Components.Layout.ItemPage.ItemHistory History="itemHistory"></BlazorWebClient.Components.Layout.ItemPage.ItemHistory>
+        }
+
+        <hr />
+        
+        <div class="row border rounded p-3">
+            @foreach (var deal in Item.ItemDeals)
+            {
+                <BlazorWebClient.Components.Layout.ItemPage.ItemDeals Deal="deal"></BlazorWebClient.Components.Layout.ItemPage.ItemDeals>
+            }
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    ItemDetailedReadDto Item;
+    List<DealHistoryReadDto> itemHistory = new List<DealHistoryReadDto>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (UserService.IsUserLoggedIn)
+        {
+            await LoadItemInfo();
+            await LoadItemHistory();
+        }
+        else
+        {
+            await MessageService.ShowMessage("You need too authorize first!");
+        }
+    }
+    private async Task LoadItemInfo()
+    {
+        HttpResponseMessage response = await UserService.HttpClient.GetAsync($"{UserService.BaseUrl}/items/{Id}");
+        if (response.IsSuccessStatusCode)
+        {
+            Item = await response.Content.ReadFromJsonAsync<ItemDetailedReadDto>();
+        }
+    }
+    private async Task LoadItemHistory()
+    {
+        HttpResponseMessage response = await UserService.HttpClient.GetAsync($"{UserService.BaseUrl}/items/{Id}/history");
+        if (response.IsSuccessStatusCode)
+        {
+            itemHistory = await response.Content.ReadFromJsonAsync<List<DealHistoryReadDto>>();
+        }
+    }
+}

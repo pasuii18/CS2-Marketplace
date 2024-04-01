@@ -1,0 +1,17 @@
+﻿.ihar-link{
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    transition: 0.5s;
+}
+.ihar-link:hover{
+    text-decoration: underline;
+}
+
+.ihar-img{
+    cursor: pointer;
+    transition: 0.5s;
+}
+.ihar-img:hover{
+    transform: scale(1.05);
+}

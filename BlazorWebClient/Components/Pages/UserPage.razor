@@ -1,0 +1,201 @@
+﻿@page "/users/{UUID}"
+@rendermode InteractiveServer
+
+@if (User == null)
+{
+    <p>Sorry. There is no info yet!</p>
+}
+else
+{
+    <div class="border p-3 container mt-3 mb-2">
+        @if (isEditing)
+        {
+            <BlazorWebClient.Components.Layout.UserPage.UserUpdateForm User="User"></BlazorWebClient.Components.Layout.UserPage.UserUpdateForm>
+            <button class="btn btn-secondary mb-2" @onclick="UpdateSwitcher" style="font-size: 18px;">Cancel</button>
+        }
+        else if(isDeleting)
+        {
+            <BlazorWebClient.Components.Layout.UserPage.UserDeleteForm></BlazorWebClient.Components.Layout.UserPage.UserDeleteForm>
+            <button class="btn btn-secondary mb-2" @onclick="DeleteSwitcher" style="font-size: 18px;">Cancel</button>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-md-3">
+                    <img src=@($"{UserService.BaseUrl}/UsersPictures/{User.IdPicture}") style="width: 310px; height: 310px;" class="img rounded" alt="Profile Picture" />
+                </div>
+                <div class="col-md-9">
+                    <h1>@User.Username</h1>
+                    <h2 class="card-title" style="@StyleHelper.GetRoleColor(User.Role)">@User.Role</h2>
+                    <div class="border rounded p-3 mt-2">
+                        <h3>@User.Description</h3>
+                    </div>
+                    @if (UserService.UserUUID != null && UserService.UserUUID == UUID)
+                    {
+                        <button class="btn btn-primary mt-4" @onclick="UpdateSwitcher">Edit Profile</button>
+                        <button class="btn btn-primary mt-4" @onclick="DeleteSwitcher">Delete Profile</button>
+                        <button class="btn btn-primary mt-4" @onclick="LogOut">LogOut</button>
+                    }
+                    @if (!isSettingRole)
+                    {
+                        @if (UserService.IsSuperCoolGuy && UUID != UserService.UserUUID)
+                        {
+                            <button class="btn btn-primary mt-4" @onclick="ChangeRoleSwitcher">Change Role</button>
+                        }
+                    }
+                    else
+                    {
+                        <BlazorWebClient.Components.Layout.UserPage.UserRoleUpdateForm UUID="@UUID"></BlazorWebClient.Components.Layout.UserPage.UserRoleUpdateForm>
+                        <button class="btn btn-dark mb-1" @onclick="ChangeRoleSwitcher" style="font-size: 18px;">Cancel</button>
+                    }
+                </div>
+            </div>
+            <div class="row-md-2">
+                <button class="btn btn-dark mt-3" @onclick="LoadUserDeals">Load Deals</button>
+                <button class="btn btn-dark mt-3" @onclick="LoadUserOffers">Load Offers</button>
+                <button class="btn btn-dark mt-3" @onclick="LoadUserDealsHistorySellings">Load Sellings History</button>
+                <button class="btn btn-dark mt-3" @onclick="LoadUserDealsHistoryBuyings">Load Buyings History</button>
+            </div>
+        }
+    </div>
+}
+
+@if (tabOpened != null)
+{
+    switch (tabOpened)
+    {
+        case "Deals":
+            if (Deals != null && Deals.Any())
+            {
+                <BlazorWebClient.Components.Layout.UserPage.UserDeals Deals="Deals"></BlazorWebClient.Components.Layout.UserPage.UserDeals>
+            }
+            else
+            {
+                <div class="container">
+                    <h2>There is no deals yet!</h2>
+                </div>
+            }
+            break;
+        case "Offers":
+            if (Offers != null && Offers.Any())
+            {
+                <div class="container mt-5">
+                    <div class="row">
+                        @foreach (var offer in Offers)
+                        {
+                            <BlazorWebClient.Components.Layout.UserPage.UserOffers Offer="offer"></BlazorWebClient.Components.Layout.UserPage.UserOffers>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="container">
+                    <h2>There is no offers yet!</h2>
+                </div>
+            }
+            break;
+        case "SellingsHistory":
+            if (SellingsHistory != null && SellingsHistory.Any())
+            {
+                <BlazorWebClient.Components.Layout.UserPage.UserHistory DealHistory="SellingsHistory" CurrentPageUserUuid="@UUID"></BlazorWebClient.Components.Layout.UserPage.UserHistory>
+            }
+            else
+            {
+                <div class="container">
+                    <h2>There is no selling history yet!</h2>
+                </div>
+            }
+            break;
+        case "BuyingsHistory":
+            if (BuyingsHistory != null && BuyingsHistory.Any())
+            {
+                <BlazorWebClient.Components.Layout.UserPage.UserHistory DealHistory="BuyingsHistory" CurrentPageUserUuid="@UUID"></BlazorWebClient.Components.Layout.UserPage.UserHistory>
+            }
+            else
+            {
+                <div class="container">
+                    <h2>There is no buying history yet!</h2>
+                </div>
+            }
+            break;
+    }
+}
+
+@code{
+    [Parameter] public string UUID { get; set; }
+
+    UserProfileDto User;
+    List<DealReadDto> Deals;
+    List<DealOffersReadDto> Offers;
+    List<UserDealsHistoryReadDto> SellingsHistory;
+    List<UserDealsHistoryReadDto> BuyingsHistory;
+    
+    bool isEditing = false;
+    bool isDeleting = false;
+    bool isSettingRole = false;
+    string tabOpened = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (UserService.IsUserLoggedIn)
+        {
+            HttpResponseMessage response = await UserService.HttpClient.GetAsync($"{UserService.BaseUrl}/users/{UUID}");
+            await MessageService.ShowMessage(response);
+            if (response.IsSuccessStatusCode) User = await response.Content.ReadFromJsonAsync<UserProfileDto>();
+        }
+        else
+        {
+            await MessageService.ShowMessage("You need too authorize first!");
+        }
+    }
+
+    private async Task LoadUserDeals()
+    {
+        tabOpened = "Deals";
+        HttpResponseMessage response = await UserService.HttpClient.GetAsync($"{UserService.BaseUrl}/users/{UUID}/deals");
+        await MessageService.ShowMessage(response);
+        if (response.IsSuccessStatusCode) Deals = await response.Content.ReadFromJsonAsync<List<DealReadDto>>();
+    }
+    private async Task LoadUserOffers()
+    {
+        tabOpened = "Offers";
+        HttpResponseMessage response = await UserService.HttpClient.GetAsync($"{UserService.BaseUrl}/users/{UUID}/offers");
+        await MessageService.ShowMessage(response);
+        if (response.IsSuccessStatusCode) Offers = await response.Content.ReadFromJsonAsync<List<DealOffersReadDto>>();
+    }
+    private async Task LoadUserDealsHistorySellings()
+    {
+        tabOpened = "SellingsHistory";
+        HttpResponseMessage response = await UserService.HttpClient.GetAsync($"{UserService.BaseUrl}/users/{UUID}/sellings");
+        await MessageService.ShowMessage(response);
+        if (response.IsSuccessStatusCode) SellingsHistory = await response.Content.ReadFromJsonAsync<List<UserDealsHistoryReadDto>>();
+    }
+    private async Task LoadUserDealsHistoryBuyings()
+    {
+        tabOpened = "BuyingsHistory";
+        HttpResponseMessage response = await UserService.HttpClient.GetAsync($"{UserService.BaseUrl}/users/{UUID}/buyings");
+        await MessageService.ShowMessage(response);
+        if (response.IsSuccessStatusCode) BuyingsHistory = await response.Content.ReadFromJsonAsync<List<UserDealsHistoryReadDto>>();
+    }
+
+    private void UpdateSwitcher()
+    {
+        isEditing = !isEditing;
+    }
+    private void DeleteSwitcher()
+    {
+        isDeleting = !isDeleting;
+    }
+    private void ChangeRoleSwitcher()
+    {
+        isSettingRole = !isSettingRole;
+    }
+    
+    private async Task LogOut()
+    {
+        UserService.Clear();
+        NavManager.NavigateTo("/");
+        await MessageService.ShowMessage("Successful Log Out!");
+    }
+}

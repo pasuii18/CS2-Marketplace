@@ -1,0 +1,84 @@
+﻿<div class="row justify-content-center align-items-start">
+    <div class="col-md-3 border rounded p-4 m-3">
+        <h2>Create</h2>
+        <EditForm Model="@classCharacteristicsCreateDto" FormName="createForm" OnSubmit="CreateSubmit">
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="SubClass Name" @bind="@classCharacteristicsCreateDto.ClassCharacteristicName" />
+            </div>
+            <button type="submit" class="btn btn-dark">Create</button>
+        </EditForm>
+    </div>
+    <div class="col-md-3 border rounded p-4 m-3">
+        <h2>Update</h2>
+        <EditForm Model="@classCharacteristicsUpdateDto" FormName="updateForm" OnSubmit="UpdateSubmit">
+            <div class="mb-3">
+                <select class="form-select" @onchange="UpdateValueChanged">
+                    <option class="form-option" value="0">Not Selected</option>
+                    @foreach (var classCharacteristic in classCharacteristics)
+                    {
+                        <option class="form-option" value="@classCharacteristic.IdClassCharacteristic">@classCharacteristic.ClassCharacteristicName</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="New Name" @bind="@classCharacteristicsUpdateDto.ClassCharacteristicName"/>
+            </div>
+            <button type="submit" class="btn btn-dark">Update</button>
+        </EditForm>
+    </div>
+    <div class="col-md-3 border rounded p-4 m-3">
+        <h2>Delete</h2>
+        <div class="mb-3">
+            <select class="form-select" @onchange="DeleteValueChanged">
+                <option class="form-option" value="0">Not Selected</option>
+                @foreach (var classCharacteristic in classCharacteristics)
+                {
+                    <option class="form-option" value="@classCharacteristic.IdClassCharacteristic">@classCharacteristic.ClassCharacteristicName</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-dark" @onclick="DeleteSubmit">Delete</button>
+    </div>
+</div>
+
+@code{
+    ClassCharacteristicsCreateDto classCharacteristicsCreateDto = new ClassCharacteristicsCreateDto();
+    ClassCharacteristicsUpdateDto classCharacteristicsUpdateDto = new ClassCharacteristicsUpdateDto();
+    int updateValue;
+    int deleteValue;
+    
+    List<ClassCharacteristicsReadDto> classCharacteristics = new List<ClassCharacteristicsReadDto>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        HttpResponseMessage response = await UserService.HttpClient.GetAsync($"{UserService.BaseUrl}/classcharacteristics");
+        await MessageService.ShowMessage(response);
+        if (response.IsSuccessStatusCode) classCharacteristics = await response.Content.ReadFromJsonAsync<List<ClassCharacteristicsReadDto>>();
+    }
+    
+    private void UpdateValueChanged(ChangeEventArgs e)
+    {
+        updateValue = int.Parse(e.Value.ToString());
+    }
+    private void DeleteValueChanged(ChangeEventArgs e)
+    {
+        deleteValue = int.Parse(e.Value.ToString());
+    }
+    
+    private async Task CreateSubmit()
+    {
+        HttpResponseMessage response = await UserService.HttpClient.PostAsJsonAsync($"{UserService.BaseUrl}/classcharacteristics", classCharacteristicsCreateDto);
+        await MessageService.ShowMessage(response);
+    }
+    private async Task UpdateSubmit()
+    {
+        classCharacteristicsUpdateDto.IdClassCharacteristic = updateValue;
+        HttpResponseMessage response = await UserService.HttpClient.PutAsJsonAsync($"{UserService.BaseUrl}/classcharacteristics", classCharacteristicsUpdateDto);
+        await MessageService.ShowMessage(response);
+    }
+    private async Task DeleteSubmit()
+    {
+        HttpResponseMessage response = await UserService.HttpClient.DeleteAsync($"{UserService.BaseUrl}/classcharacteristics/{deleteValue}");
+        await MessageService.ShowMessage(response);
+    }
+}

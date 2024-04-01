@@ -1,0 +1,28 @@
+﻿<div class="col-md-3">
+    <div class="card mb-2 shadow-sm">
+        <img class="card-img-top" style="width: 290px; height: 220px" @onclick="(() => ItemChoose(Item.IdItem))" src=@($"{UserService.BaseUrl}/ItemsPictures/{Item.IdItemPicture}")>
+        <div class="card-body">
+            <h6 class="card-title">@Item.ItemTypeName / @Item.ItemClassName</h6>
+            <h5 class="card-title" style="@StyleHelper.GetRarityColor(Item.Rarity)">@Item.ItemSubClassName | @Item.SkinName</h5>
+            @if (Item.LowestPrice != null)
+            {
+                <h4 class="card-text">Price: @Item.LowestPrice$</h4>
+            }
+            else
+            {
+                <h4 class="card-text">No deals</h4>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public ItemsReadDto Item { get; set; }
+
+
+    private void ItemChoose(int id)
+    {
+        NavManager.NavigateTo($"/items/{id}");
+    }
+}

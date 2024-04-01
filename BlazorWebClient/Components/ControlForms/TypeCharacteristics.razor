@@ -1,0 +1,84 @@
+﻿<div class="row justify-content-center align-items-start">
+    <div class="col-md-3 border rounded p-4 m-3">
+        <h2>Create</h2>
+        <EditForm Model="@typeCharacteristicsCreateDto" FormName="createForm" OnSubmit="CreateSubmit">
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="SubType Name" @bind="@typeCharacteristicsCreateDto.TypeCharacteristicName" />
+            </div>
+            <button type="submit" class="btn btn-dark">Create</button>
+        </EditForm>
+    </div>
+    <div class="col-md-3 border rounded p-4 m-3">
+        <h2>Update</h2>
+        <EditForm Model="@typeCharacteristicsUpdateDto" FormName="updateForm" OnSubmit="UpdateSubmit">
+            <div class="mb-3">
+                <select class="form-select" @onchange="UpdateValueChanged">
+                    <option class="form-option" value="0">Not Selected</option>
+                    @foreach (var typeCharacteristic in typeCharacteristics)
+                    {
+                        <option class="form-option" value="@typeCharacteristic.IdTypeCharacteristic">@typeCharacteristic.TypeCharacteristicName</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="New Name" @bind="@typeCharacteristicsUpdateDto.TypeCharacteristicName"/>
+            </div>
+            <button type="submit" class="btn btn-dark">Update</button>
+        </EditForm>
+    </div>
+    <div class="col-md-3 border rounded p-4 m-3">
+        <h2>Delete</h2>
+        <div class="mb-3">
+            <select class="form-select" @onchange="DeleteValueChanged">
+                <option class="form-option" value="0">Not Selected</option>
+                @foreach (var typeCharacteristic in typeCharacteristics)
+                {
+                    <option class="form-option" value="@typeCharacteristic.IdTypeCharacteristic">@typeCharacteristic.TypeCharacteristicName</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-dark" @onclick="DeleteSubmit">Delete</button>
+    </div>
+</div>
+
+@code{
+    TypeCharacteristicsCreateDto typeCharacteristicsCreateDto = new TypeCharacteristicsCreateDto();
+    TypeCharacteristicsUpdateDto typeCharacteristicsUpdateDto = new TypeCharacteristicsUpdateDto();
+    int updateValue;
+    int deleteValue;
+    
+    List<TypeCharacteristicsReadDto> typeCharacteristics = new List<TypeCharacteristicsReadDto>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        HttpResponseMessage response = await UserService.HttpClient.GetAsync($"{UserService.BaseUrl}/typecharacteristics");
+        await MessageService.ShowMessage(response);
+        if (response.IsSuccessStatusCode) typeCharacteristics = await response.Content.ReadFromJsonAsync<List<TypeCharacteristicsReadDto>>();
+    }
+    
+    private void UpdateValueChanged(ChangeEventArgs e)
+    {
+        updateValue = int.Parse(e.Value.ToString());
+    }
+    private void DeleteValueChanged(ChangeEventArgs e)
+    {
+        deleteValue = int.Parse(e.Value.ToString());
+    }
+    
+    private async Task CreateSubmit()
+    {
+        HttpResponseMessage response = await UserService.HttpClient.PostAsJsonAsync($"{UserService.BaseUrl}/typecharacteristics", typeCharacteristicsCreateDto);
+        await MessageService.ShowMessage(response);
+    }
+    private async Task UpdateSubmit()
+    {
+        typeCharacteristicsUpdateDto.IdTypeCharacteristic = updateValue;
+        HttpResponseMessage response = await UserService.HttpClient.PutAsJsonAsync($"{UserService.BaseUrl}/typecharacteristics", typeCharacteristicsUpdateDto);
+        await MessageService.ShowMessage(response);
+    }
+    private async Task DeleteSubmit()
+    {
+        HttpResponseMessage response = await UserService.HttpClient.DeleteAsync($"{UserService.BaseUrl}/typecharacteristics/{deleteValue}");
+        await MessageService.ShowMessage(response);
+    }
+}

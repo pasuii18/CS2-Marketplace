@@ -1,0 +1,33 @@
+﻿@rendermode InteractiveServer
+
+<div class="position-fixed top-0 end-0 p-3" style="margin-top:60px; z-index: 1000;">
+    @if (MessageService.Response is not null)
+    {
+        <div class="alert alert-info" role="alert" style="max-width: 300px; min-width: 300px;">
+            <button type="button" class="btn-close float-end" aria-label="Close" @onclick="Close"></button>
+            @if (MessageService.Response.StatusCode != null) { <p>@MessageService.Response.StatusCode</p> }
+            @if (MessageService.Response.Message != null) { <p>@MessageService.Response.Message</p> }
+        </div>
+    }
+</div>
+
+@code {
+    private string BoxType;
+    protected override void OnInitialized()
+    {
+        MessageService.OnMessageRefresh += Refresh;
+    }
+
+    private async void Refresh()
+    {
+        InvokeAsync(() => StateHasChanged());
+        await Task.Delay(3000);
+        Close();
+        InvokeAsync(() => StateHasChanged());
+    }
+
+    private void Close()
+    {
+        MessageService.Response = null;
+    }
+}

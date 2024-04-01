@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="shortcut icon" href="icons/icon.png" type="image/png">
+    <link rel="icon" href="icons/icon.png" type="image/png">
+ 	<link rel="stylesheet" href="accountEdit.css" type="text/css"/>
+  
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Monomaniac+One&family=Tsukimi+Rounded:wght@300&display=swap');
+    </style>
+
+    <title>Account</title>
+ </head>    
+
+ <body>
+    <div class="navigationBar" id="navigationBar">
+        <a href="https://pasuii.me">Market</a>
+        <a href="https://pasuii.me">Account</a>
+    </div>
+    <div class="accountBody"> 
+        <div class="content"> 
+            <h2>Edit</h2>
+            <div class="accountPanel">
+                <img id="accountPicture" class="accountPicture" src="icons/icon2.png">
+                <input type="file" id="accountPictureInput" accept=".png, .jpg, .jpeg, .gif" style="display: none;">
+                <div class="accountInformation">
+                    <div class="accountNameAndLinks">
+                        <textarea class="accountName" placeholder="Account Name" maxlength="20" spellcheck="false"></textarea>
+                    </div>
+                    <hr>
+                    <textarea class="description" placeholder="Hi! I'm using Kyu!" maxlength="190" rows="6" spellcheck="false"></textarea>
+                </div>
+            </div>
+            <div class="links">
+                <div class="link">
+                    <a href="pasuii.me"><img class="accountIcon" src="icons/steam.svg"></a>
+                    <textarea placeholder="Steam Link"></textarea>
+                </div>
+
+                <div class="link">
+                    <a href="pasuii.me"><img class="accountIcon" src="icons/discord.svg"></a>
+                    <textarea placeholder="Discord Link"></textarea>
+                </div>
+
+                <div class="link">
+                    <a href="pasuii.me"><img class="accountIcon" src="icons/telegram.svg"></a>
+                    <textarea placeholder="Telegram Link"></textarea>
+                </div>
+            </div>
+            <button class="passwordChangeBtn">Change Password</button>
+            <button class="saveBtn">Save Changes!</button>
+        </div> 
+    </div>
+ </body>
+ <script src="navigationBar.js"></script>
+ <script src="uploadPFP.js"></script>
+</script>
+ </html>

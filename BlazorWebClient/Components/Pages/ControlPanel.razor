@@ -1,0 +1,77 @@
+﻿@page "/control-panel"
+@rendermode InteractiveServer
+
+@if (UserService.IsCoolGuy)
+{
+    <div class="container">
+        <div class="col justify-content-center align-items-center">
+            <div class="col border rounded p-4 m-3">
+                <select class="form-select" @onchange="UpdateRoleName">
+                    <option class="form-option" value="ihar">Not Selected</option>
+                    <hr>
+                    <option class="form-option" value="Roles">Roles</option>
+                    <hr>
+                    <option class="form-option" value="Skins">Skins</option>
+                    <hr>
+                    <option class="form-option" value="Items">Items</option>
+                    <option class="form-option" value="ItemType">Items Type</option>
+                    <option class="form-option" value="ItemsClass">Items Class</option>
+                    <option class="form-option" value="ItemsSubClass">Items SubClass</option>
+                    <hr>
+                    <option class="form-option" value="TypeCharacteristics">Type Characteristics</option>
+                    <option class="form-option" value="ClassCharacteristics">Class Characteristics</option>
+                    <hr>
+                    <option class="form-option" value="ItemsTypeCharacteristics">Items Type Characteristics</option>
+                    <option class="form-option" value="ItemsClassCharacteristics">Items Class Characteristics</option>
+                </select>
+            </div>
+            <div class="col">
+                @switch (currentTable)
+                {
+                    case "Roles":
+                        <BlazorWebClient.Components.ControlForms.Roles></BlazorWebClient.Components.ControlForms.Roles>
+                        break;
+                    case "Skins":
+                        <BlazorWebClient.Components.ControlForms.Skins></BlazorWebClient.Components.ControlForms.Skins>
+                        break;
+                    case "Items":
+                        <BlazorWebClient.Components.ControlForms.Items></BlazorWebClient.Components.ControlForms.Items>
+                        break;
+                    case "ItemType":
+                        <BlazorWebClient.Components.ControlForms.ItemsType></BlazorWebClient.Components.ControlForms.ItemsType>
+                        break;
+                    case "ItemsTypeCharacteristics":
+                        <BlazorWebClient.Components.ControlForms.ItemsTypeCharacteristics></BlazorWebClient.Components.ControlForms.ItemsTypeCharacteristics>
+                        break;
+                    case "TypeCharacteristics":
+                        <BlazorWebClient.Components.ControlForms.TypeCharacteristics></BlazorWebClient.Components.ControlForms.TypeCharacteristics>
+                        break;
+                    case "ItemsClass":
+                        <BlazorWebClient.Components.ControlForms.ItemsClass></BlazorWebClient.Components.ControlForms.ItemsClass>
+                        break;
+                    case "ItemsClassCharacteristics":
+                        <BlazorWebClient.Components.ControlForms.ItemsClassCharacteristics></BlazorWebClient.Components.ControlForms.ItemsClassCharacteristics>
+                        break;
+                    case "ClassCharacteristics":
+                        <BlazorWebClient.Components.ControlForms.ClassCharacteristics></BlazorWebClient.Components.ControlForms.ClassCharacteristics>
+                        break;
+                    case "ItemsSubClass":
+                        <BlazorWebClient.Components.ControlForms.ItemsSubClass></BlazorWebClient.Components.ControlForms.ItemsSubClass>
+                        break;
+                    default:
+                        <h6>Hiiiiii =)</h6>
+                        break;
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    string currentTable = "";
+    
+    private void UpdateRoleName(ChangeEventArgs e)
+    {
+        currentTable = e.Value.ToString();
+    }
+}

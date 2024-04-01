@@ -1,0 +1,47 @@
+﻿<EditForm Model="@RoleUpdateDto" FormName="updateUserForm" OnSubmit="ChangeRole">
+    <div class="row">
+        <div class="col-md-9">
+            <select class="form-select" @onchange="UpdateRoleName">
+                @foreach (var role in Roles)
+                {
+                    <option class="form-option" value="@role.RoleName">@role.RoleName</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-dark mb-1">Set Role</button>
+</EditForm>
+
+@code{
+    [Parameter] public string UUID { get; set; }
+    
+    List<RolesReadDto> Roles = new List<RolesReadDto>();
+    UserRoleUpdateDto RoleUpdateDto = new UserRoleUpdateDto { RoleName = "Member" };
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (UserService.IsUserLoggedIn && UserService.IsCoolGuy)
+        {
+            HttpResponseMessage response = await UserService.HttpClient.GetAsync($"{UserService.BaseUrl}/roles");
+            await MessageService.ShowMessage(response);
+            if (response.IsSuccessStatusCode) Roles = await response.Content.ReadFromJsonAsync<List<RolesReadDto>>();
+        }
+        else
+        {
+            await MessageService.ShowMessage("Nuh uh.");
+        }
+    }
+    
+    private void UpdateRoleName(ChangeEventArgs e)
+    {
+        RoleUpdateDto.RoleName = e.Value.ToString();
+    }
+    
+    private async Task ChangeRole()
+    {
+        RoleUpdateDto.UUID = UUID;
+        HttpResponseMessage response = await UserService.HttpClient.PutAsJsonAsync($"{UserService.BaseUrl}/users/set-role", RoleUpdateDto);
+        await MessageService.ShowMessage(response);
+    }
+}

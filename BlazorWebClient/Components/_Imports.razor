@@ -1,0 +1,42 @@
+﻿@using System.Net.Http
+@using System.Net.Http.Json
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using static Microsoft.AspNetCore.Components.Web.RenderMode
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using Microsoft.JSInterop
+@using Newtonsoft.Json
+@using System.Text
+
+@using BlazorWebClient.Dtos.ItemsDtos;
+@using BlazorWebClient.Dtos.UsersDtos;
+@using BlazorWebClient.Dtos.DealsDtos;
+@using BlazorWebClient.Dtos.DealsDtos.DealHistory;
+@using BlazorWebClient.Dtos.DealsDtos.DealOffers
+@using BlazorWebClient.Dtos.UsersDtos.Roles
+@using BlazorWebClient.Dtos.ItemsDtos.SubClass.ItemsSubClass
+@using BlazorWebClient.Dtos.ItemsDtos.Class.ClassCharacteristics
+@using BlazorWebClient.Dtos.ItemsDtos.Type.TypeCharacteristics
+@using BlazorWebClient.Dtos.ItemsDtos.Class.ItemsClassCharacteristics
+@using BlazorWebClient.Dtos.ItemsDtos.Class.ItemsClass
+@using BlazorWebClient.Dtos.ItemsDtos.Type.ItemsTypeCharacteristics
+@using BlazorWebClient.Dtos.ItemsDtos.Type.ItemsType
+@using BlazorWebClient.Dtos.ItemsDtos.Skins
+@using BlazorWebClient.Dtos.ItemsDtos.Type
+@using BlazorWebClient.Dtos.ItemsDtos.Class
+
+@using BlazorWebClient.Scripts;
+@using System.IdentityModel.Tokens.Jwt;
+@using System.Security.Claims;
+@using BlazorBootstrap;
+@using System.Globalization
+
+@using BlazorWebClient.Components.ControlForms;
+
+@inject NavigationManager NavManager;
+@inject HttpClient Http;
+@inject UserService UserService;
+@inject MessageService MessageService;
+@inject IJSRuntime JSRuntime;

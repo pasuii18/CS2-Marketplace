@@ -1,0 +1,59 @@
+﻿<div class="row align-items-start border rounded p-3">
+    <div class="col-md-6">
+        <img class="card-img-top" src=@($"{UserService.BaseUrl}/ItemsPictures/{Item.IdItemPicture}")>
+    </div>
+    <div class="col-md-6">
+        <h3 class="card-title">@Item.ItemTypeName / @Item.ItemClassName</h3>
+        <h2 class="card-title" style="@StyleHelper.GetRarityColor(Item.Rarity)">@Item.ItemSubClassName | @Item.SkinName</h2>
+        <hr>
+        @if (Item.ItemsTypeCharacteristics.Any())
+        {
+            @foreach (var typechar in Item.ItemsTypeCharacteristics)
+            {
+                <h4>@typechar.TypeCharacteristicName: @typechar.TypeCharacteristicValue</h4>
+            }
+            <hr/>
+        }
+        @if (Item.ItemsClassCharacteristics.Any())
+        {
+            @foreach(var classchar in Item.ItemsClassCharacteristics)
+            {
+                <h4>@classchar.ClassCharacteristicName: @classchar.ClassCharacteristicValue</h4>
+            }
+            <hr/>
+        }
+        
+        @if (UserService.IsUserLoggedIn)
+        {
+            <EditForm Model="@dealCreateDto" FormName="dealCreateForm" OnValidSubmit="CreateDeal">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+            
+                <InputText id="price" type="text" class="form-control" @bind-Value="@priceAsString" />
+                <button type="submit" class="btn btn-dark float-bottom">Make Deal!</button>
+            </EditForm>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public ItemDetailedReadDto Item { get; set; }
+    private DealCreateDto dealCreateDto = new DealCreateDto();
+    private string priceAsString;
+    
+    private async Task CreateDeal()
+    {
+        if (decimal.TryParse(priceAsString, out decimal result))
+        {
+            dealCreateDto.Price = result;
+            dealCreateDto.IdItem = Item.IdItem;
+            HttpResponseMessage response = await UserService.HttpClient.PostAsJsonAsync($"{UserService.BaseUrl}/deals/create", dealCreateDto);
+            await MessageService.ShowMessage(response);
+        }
+        else
+        {
+            await MessageService.ShowMessage("Incorrect Price! Correct format: 12,34 or 12");
+        }   
+    }
+}

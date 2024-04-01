@@ -1,0 +1,110 @@
+﻿@page "/deals/{id}/offers"
+@rendermode InteractiveServer
+
+@if (DealOffers == null)
+{
+    <p>Sorry, something went wrong? =(</p>
+}
+else
+{
+    if(DealOffers.Count == 0)
+    {
+        <p>Sorry, there is no offers yet!</p>
+    }
+
+    if (UserService.IsUserLoggedIn && Deal.UserUUID != UserService.UserUUID)
+    {
+        <EditForm Model="@offerCreateDto" FormName="offerCreateForm" OnValidSubmit="CreateOffer">
+            <InputText id="price" type="text" class="form-control" @bind-Value="@priceAsString" />
+            <button type="submit" class="btn btn-dark float-bottom">Make Offer!</button>
+        </EditForm>
+    }
+    
+    if(DealOffers.Count != 0)
+    {
+        <div class="container">
+            @if (@DealOffers != null && DealOffers.Any())
+            {
+                @foreach (var offer in DealOffers)
+                {
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="card mb-6">
+                                <a class="nav-link text-black" @onclick="(() => UserChoose(offer.OffererUUID))">
+                                    <h6 class="card-text">Offerer UUID: @offer.OffererUUID</h6>
+                                </a>
+                                <h5 class="card-text">Price: @offer.OfferPrice$</h5>
+                            </div>
+                        </div>
+                        @if (Deal != null && Deal.UserUUID == UserService.UserUUID)
+                        {
+                            <div class="col-md-3">
+                                <button class="btn btn-dark float-right" @onclick="() => AcceptOffer(offer.IdDeal, offer.IdDealOffer)">Accept</button>
+                            </div>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    }
+}
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    List<DealOffersReadDto> DealOffers;
+    DealReadDto Deal;
+    DealOffersCreateDto offerCreateDto = new DealOffersCreateDto();
+    string priceAsString;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadOffers();
+        await LoadDealInfo();
+    }
+
+    private async Task LoadOffers()
+    {
+        HttpResponseMessage response = await UserService.HttpClient.GetAsync($"{UserService.BaseUrl}/deals/{Id}/offers");
+        await MessageService.ShowMessage(response);
+        if (response.IsSuccessStatusCode)
+        {
+            DealOffers = await response.Content.ReadFromJsonAsync<List<DealOffersReadDto>>();
+        }
+    }
+    private async Task LoadDealInfo()
+    {
+        HttpResponseMessage response = await UserService.HttpClient.GetAsync($"{UserService.BaseUrl}/deals/{Id}");
+        await MessageService.ShowMessage(response);
+        if (response.IsSuccessStatusCode)
+        {
+            Deal = await response.Content.ReadFromJsonAsync<DealReadDto>();
+        }
+    }
+    
+    private async Task CreateOffer()
+    {
+        if (decimal.TryParse(priceAsString, out decimal result))
+        {
+            offerCreateDto.OfferPrice = result;
+            offerCreateDto.IdDeal = int.Parse(Id);
+            HttpResponseMessage response = await UserService.HttpClient.PostAsJsonAsync($"{UserService.BaseUrl}/dealoffers", offerCreateDto);
+            await MessageService.ShowMessage(response);
+        }
+        else
+        {
+            await MessageService.ShowMessage("Incorrect Price! Correct format: 12,34 or 12");
+        }   
+    }
+
+    private async Task AcceptOffer(int IdDeal, int IdDealOffer)
+    {
+        HttpResponseMessage response = await UserService.HttpClient.PostAsync($"{UserService.BaseUrl}/deals/{IdDeal}/offers/{IdDealOffer}/accept", null);
+        await MessageService.ShowMessage(response);
+    }
+    
+    private void UserChoose(string id)
+    {
+        NavManager.NavigateTo($"/users/{id}");
+    }
+}

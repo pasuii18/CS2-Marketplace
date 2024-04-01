@@ -1,0 +1,33 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+<div class="container sm-6">
+    <h1>Welcome to the CSMarket!</h1>
+    
+    @if (Items == null || Items.Count == 0)
+    {
+        <p>Sorry. There is no items yet!</p>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var item in Items)
+            {
+                <BlazorWebClient.Components.Layout.Items Item="item"></BlazorWebClient.Components.Layout.Items>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    List<ItemsReadDto> Items;
+
+    protected override async Task OnInitializedAsync()
+    {
+        HttpResponseMessage response = await UserService.HttpClient.GetAsync($"{UserService.BaseUrl}/items");
+        if (response.IsSuccessStatusCode)
+        {
+            Items = await response.Content.ReadFromJsonAsync<List<ItemsReadDto>>();
+        }
+    }
+}

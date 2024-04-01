@@ -1,0 +1,201 @@
+﻿<div class="row justify-content-center align-items-start">
+    <div class="col-md-3 border rounded p-4 m-3">
+        <h2>Create</h2>
+        <EditForm Model="@itemsClassCharacteristicsCreateDto" FormName="createForm" OnSubmit="CreateSubmit">
+            <div class="mb-3">
+                <select class="form-select" @onchange="CreateClassValueChanged">
+                    <option class="form-option" value="0">Not Selected</option>
+                    @foreach (var itemClass in itemClasses)
+                    {
+                        <option class="form-option" value="@itemClass.IdItemClass">@itemClass.ItemClassName | @itemClass.ItemSubClassName</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
+                <select class="form-select" @onchange="CreateCharacteristicValueChanged">
+                    <option class="form-option" value="0">Not Selected</option>
+                    @foreach (var classCharacteristic in classCharacteristics)
+                    {
+                        <option class="form-option" value="@classCharacteristic.IdClassCharacteristic">@classCharacteristic.ClassCharacteristicName</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="New Value" @bind="@itemsClassCharacteristicsCreateDto.ClassCharacteristicValue"/>
+            </div>
+            <button type="submit" class="btn btn-dark">Create</button>
+        </EditForm>
+    </div>
+    <div class="col-md-3 border rounded p-4 m-3">
+        <h2>Update</h2>
+        <EditForm Model="@itemsClassCharacteristicsUpdateDto" FormName="updateForm" OnSubmit="UpdateSubmit">
+            <div class="mb-3">
+                <select class="form-select" @onchange="UpdateClassValueChanged">
+                    <option class="form-option" value="0">Not Selected</option>
+                    @foreach (var itemClass in itemsClassCharacteristics)
+                    {
+                        <option class="form-option" value="@itemClass.IdItemClass">@itemClass.ItemClassName | @itemClass.ItemSubClassName</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
+                <select class="form-select" @onchange="UpdateCharacteristicChanged" value="@itemsClassCharacteristicsUpdateDto.IdClassCharacteristic">
+                    <option class="form-option" value="0">Not Selected</option>
+                    @foreach (var classCharacteristic in itemClassCharacteristics)
+                    {
+                        <option class="form-option" value="@classCharacteristic.IdClassCharacteristic">@classCharacteristic.ClassCharacteristicName</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="@updateValue" @bind="@itemsClassCharacteristicsUpdateDto.ClassCharacteristicValue"/>
+            </div>
+            <button type="submit" class="btn btn-dark">Update</button>
+        </EditForm>
+    </div>
+    <div class="col-md-3 border rounded p-4 m-3">
+        <h2>Delete</h2>
+        <div class="mb-3">
+            <select class="form-select" @onchange="DeleteClassValueChanged">
+                <option class="form-option" value="0">Not Selected</option>
+                @foreach (var itemsClassCharacteristic in itemsClassCharacteristics)
+                {
+                    <option class="form-option" value="@itemsClassCharacteristic.IdItemClass">@itemsClassCharacteristic.ItemClassName | @itemsClassCharacteristic.ItemSubClassName</option>
+                }
+            </select>
+        </div>
+        <div class="mb-3">
+            <select class="form-select" @onchange="DeleteCharacteristicValueChanged" value="@itemsClassCharacteristicsDeleteDto.IdClassCharacteristic">
+                <option class="form-option" value="0">Not Selected</option>
+                @foreach (var itemClassCharacteristic in itemClassCharacteristics)
+                {
+                    <option class="form-option" value="@itemClassCharacteristic.IdClassCharacteristic">@itemClassCharacteristic.ClassCharacteristicName</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-dark" @onclick="DeleteSubmit">Delete</button>
+    </div>
+</div>
+
+@code{
+    ItemsClassCharacteristicsCreateDto itemsClassCharacteristicsCreateDto = new ItemsClassCharacteristicsCreateDto();
+    ItemsClassCharacteristicsUpdateDto itemsClassCharacteristicsUpdateDto = new ItemsClassCharacteristicsUpdateDto();
+    ItemsClassCharacteristicsDeleteDto itemsClassCharacteristicsDeleteDto = new ItemsClassCharacteristicsDeleteDto();
+    string updateValue = "New Value";
+    
+    List<ItemsClassCharacteristicsReadDto> itemsClassCharacteristics = new List<ItemsClassCharacteristicsReadDto>();
+    List<ClassCharacteristicsReadDto> classCharacteristics = new List<ClassCharacteristicsReadDto>();
+    List<ItemsClassReadDto> itemClasses = new List<ItemsClassReadDto>();
+    List<ItemsClassCharacteristicsReadDto> itemClassCharacteristics = new List<ItemsClassCharacteristicsReadDto>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadItemClassCharacteristics();
+        await LoadClassCharacteristics();
+        await LoadItemClasses();
+    }
+
+    private void CreateClassValueChanged(ChangeEventArgs e)
+    {
+        itemsClassCharacteristicsCreateDto.IdItemClass = int.Parse(e.Value.ToString());
+    }
+    private void CreateCharacteristicValueChanged(ChangeEventArgs e)
+    {
+        itemsClassCharacteristicsCreateDto.IdClassCharacteristic = int.Parse(e.Value.ToString());
+    }
+    private async Task UpdateClassValueChanged(ChangeEventArgs e)
+    {
+        itemsClassCharacteristicsUpdateDto.IdItemClass = int.Parse(e.Value.ToString());
+        await LoadItemClassCharacteristics(itemsClassCharacteristicsUpdateDto.IdItemClass);
+        itemsClassCharacteristicsUpdateDto.IdClassCharacteristic = 0;
+    }
+    private async Task DeleteClassValueChanged(ChangeEventArgs e)
+    {
+        itemsClassCharacteristicsDeleteDto.IdItemClass = int.Parse(e.Value.ToString());
+        await LoadItemClassCharacteristics(itemsClassCharacteristicsDeleteDto.IdItemClass);
+        itemsClassCharacteristicsDeleteDto.IdClassCharacteristic = 0;
+    }
+    private void UpdateCharacteristicChanged(ChangeEventArgs e)
+    {
+        itemsClassCharacteristicsUpdateDto.IdClassCharacteristic = int.Parse(e.Value.ToString());
+        updateValue = itemClassCharacteristics
+            .FirstOrDefault(value => value.IdClassCharacteristic == itemsClassCharacteristicsUpdateDto.IdClassCharacteristic)
+            ?.ClassCharacteristicValue;
+    }
+    private void DeleteCharacteristicValueChanged(ChangeEventArgs e)
+    { 
+        itemsClassCharacteristicsDeleteDto.IdClassCharacteristic = int.Parse(e.Value.ToString());  
+    }
+
+    private async Task LoadItemClassCharacteristics()
+    {
+        HttpResponseMessage response = await UserService.HttpClient.GetAsync($"{UserService.BaseUrl}/itemsClassCharacteristics");
+        await MessageService.ShowMessage(response);
+        if (response.IsSuccessStatusCode)
+        {
+            itemsClassCharacteristics = await response.Content.ReadFromJsonAsync<List<ItemsClassCharacteristicsReadDto>>();
+
+            if (itemsClassCharacteristics.Any())
+            {
+                itemsClassCharacteristics = itemsClassCharacteristics
+                    .GroupBy(x => x.ItemSubClassName)
+                    .Select(g => g.First())
+                    .ToList();
+                
+                // itemsClassCharacteristics = itemsClassCharacteristics
+                //     .GroupBy(x => x.ClassCharacteristicName)
+                //     .Select(g => g.First())
+                //     .ToList();
+            }
+        }
+    }
+    private async Task LoadClassCharacteristics()
+    {
+        HttpResponseMessage response = await UserService.HttpClient.GetAsync($"{UserService.BaseUrl}/classcharacteristics");
+        await MessageService.ShowMessage(response);
+        if (response.IsSuccessStatusCode) classCharacteristics = await response.Content.ReadFromJsonAsync<List<ClassCharacteristicsReadDto>>();
+    }
+    private async Task LoadItemClasses()
+    {
+        HttpResponseMessage response = await UserService.HttpClient.GetAsync($"{UserService.BaseUrl}/itemsclass");
+        await MessageService.ShowMessage(response);
+        if (response.IsSuccessStatusCode) itemClasses = await response.Content.ReadFromJsonAsync<List<ItemsClassReadDto>>();
+    }
+    private async Task LoadItemClassCharacteristics(int idItem)
+    {
+        HttpResponseMessage response = await UserService.HttpClient.GetAsync($"{UserService.BaseUrl}/itemsClassCharacteristics/item/{idItem}");
+        await MessageService.ShowMessage(response);
+        if (response.IsSuccessStatusCode)
+        {
+            itemClassCharacteristics = await response.Content.ReadFromJsonAsync<List<ItemsClassCharacteristicsReadDto>>();
+        }
+    }
+    
+    private async Task CreateSubmit()
+    {
+        HttpResponseMessage response = await UserService.HttpClient.PostAsJsonAsync($"{UserService.BaseUrl}/itemsClassCharacteristics", itemsClassCharacteristicsCreateDto);
+        await MessageService.ShowMessage(response);
+    }
+    private async Task UpdateSubmit()
+    {
+        itemsClassCharacteristicsUpdateDto.IdClassCharacteristic = itemsClassCharacteristicsUpdateDto.IdClassCharacteristic;
+        HttpResponseMessage response = await UserService.HttpClient.PutAsJsonAsync($"{UserService.BaseUrl}/itemsClassCharacteristics", itemsClassCharacteristicsUpdateDto);
+        await MessageService.ShowMessage(response);
+    }
+    private async Task DeleteSubmit()
+    {
+        var json = JsonConvert.SerializeObject(itemsClassCharacteristicsDeleteDto);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+    
+        var request = new HttpRequestMessage
+        {
+            Method = HttpMethod.Delete,
+            RequestUri = new Uri($"{UserService.BaseUrl}/itemsClassCharacteristics"),
+            Content = content
+        };
+    
+        HttpResponseMessage response = await UserService.HttpClient.SendAsync(request);
+    
+        await MessageService.ShowMessage(response);
+    }
+}

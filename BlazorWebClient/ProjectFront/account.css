@@ -1,0 +1,210 @@
+html{
+    background-color: #252525;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Quicksand', sans-serif;
+}
+body{
+	font-family: 'Tsukimi Rounded', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+a{
+	text-decoration: none;
+	color: initial;
+}
+hr{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 1px;
+    border: none;
+    background-color:var(--mainColor);
+}
+
+:root {
+    --mainColor: #f8a82f;
+}
+
+.navigationBar {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+
+    width: 1800px;
+    margin: 10px;
+    padding: 10px;
+
+    background-color: rgba(0, 0, 0,0.2);
+    border: 1px solid var(--mainColor);
+    border-radius: 5px;
+    
+    transition: top 0.6s;
+}
+
+.navigationBar a {
+    color: var(--mainColor);
+    margin: 0 15px;
+}
+
+.accountBody
+{
+    z-index: 1;
+  width: 1200px;
+  background-color: #252525;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  padding-top: 10px;
+  border-radius: 4px;
+  box-shadow: 0 15px 35px rgba(0,0,0,9);
+  margin-top: 60px;
+  margin-bottom: 20px;
+}
+.accountBody .content 
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  position: relative;
+  width: 100%;
+}
+.accountBody .content h2
+{
+    font-size: 40pt;
+    color: var(--mainColor);
+    margin: 20px;
+}
+
+.accountBody .content .accountPanel
+{
+  display: flex;
+  position: relative;
+  gap: 10px;
+
+  width: 100%;
+  border-radius: 8px;
+}
+.accountBody .content .accountPanel .accountPicture
+{
+    width: 300px;
+    height: 300px;
+
+    border: 1px solid var(--mainColor);
+    border-radius: 8px;
+    
+    background-color: rgba(0, 0, 0,0.2);
+}
+.accountBody .content .accountPanel .accountInformation
+{
+    width: 100%;
+
+    border: 1px solid var(--mainColor);
+    border-radius: 8px;
+
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    padding: 20px;
+
+    background-color: rgba(0, 0, 0,0.2);
+}
+.accountBody .content .accountPanel .accountInformation .accountNameAndLinks
+{
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    gap: 20px;
+    font-size: 32pt;
+    padding: 5px;
+    
+}
+.accountBody .content .accountPanel .accountInformation .accountNameAndLinks  .accountName
+{
+    font-size: 32pt;
+    color: var(--mainColor);
+}
+.accountBody .content .accountPanel .accountInformation .accountNameAndLinks .accountIcons
+{
+    display: flex;
+    position: absolute;
+    right: 0;
+    gap: 10px;
+}
+.accountBody .content .accountPanel .accountInformation .accountNameAndLinks .accountIcon
+{
+    width: 50px;
+    height: 50px;
+    transition: transform .2s;
+    fill: rgb(165, 127, 255) !important;
+}
+.accountBody .content .accountPanel .accountInformation .accountNameAndLinks .accountIcon:hover{
+    transform: scale(1.1);
+}
+.accountBody .content .accountPanel .accountInformation .description
+{
+    font-size: 18pt;
+    color: var(--mainColor);
+}
+
+.accountBody .content .accountDeals
+{
+    display: flex;
+    flex-flow: row wrap;
+    align-content: space-between;
+    justify-content:center;
+    gap: 20px;
+}
+.accountBody .content .accountDeals .itemDeal
+{
+    display: flex;
+    flex-direction: column;
+    width: 180px;
+    height: 220px;
+
+    border: 1px var(--mainColor) solid;
+    border-radius: 5px;
+
+    transition: transform .4s;
+}
+.accountBody .content .accountDeals .itemDeal:hover
+{
+    transform: scale(1.05);
+}
+.accountBody .content .accountDeals .itemDeal img
+{
+    margin: 5px;
+    width: 170px;
+    object-fit: cover;
+}
+
+.accountBody .content .accountDeals .itemDeal .itemDealInfo
+{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    gap: 2px;
+    margin: 5px;
+    color: rgb(233, 233, 233);
+}
+.accountBody .content .accountDeals .itemDeal .itemDealInfo .dealWear
+{
+    font-size: 12pt;
+}
+.accountBody .content .accountDeals .itemDeal .itemDealInfo .dealPrice
+{
+    font-size: 15pt;
+    font-weight: bold;
+}
+.accountBody .content .accountDeals .itemDeal .itemDealInfo .dealWeapon
+{
+    font-size: 12pt;
+    overflow: hidden;
+}

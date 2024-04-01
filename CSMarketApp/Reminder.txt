@@ -1,0 +1,4 @@
+﻿dotnet ef database drop --project .\CSMarketApp.Infrastructure.Data\ --startup-project CSMarketApp
+dotnet ef migrations add init --project .\CSMarketApp.Infrastructure.Data\ --startup-project CSMarketApp
+dotnet ef database update --project .\CSMarketApp.Infrastructure.Data\ --startup-project CSMarketApp
+--verbose

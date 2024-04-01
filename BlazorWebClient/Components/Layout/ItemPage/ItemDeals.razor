@@ -1,0 +1,30 @@
+﻿<div class="col-md-4">
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img @onclick="(() => RedirectToUser(Deal.UUID))" src=@($"{UserService.BaseUrl}/UsersPictures/{Deal.IdUserProfilePicture ?? 0}") class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h4 class="card-title">@Deal.Username</h4>
+                    <h3 class="card-text">Price: @Deal.Price$</h3>
+                    <button class="btn btn-dark" @onclick="(() => RedirectToDealOffers(Deal.IdDeal))">Offers</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public ItemDealsReadDto Deal { get; set; }
+
+    private void RedirectToUser(string uuid)
+    {
+        NavManager.NavigateTo($"/users/{uuid}");
+    }
+    private void RedirectToDealOffers(int dealId)
+    {
+        NavManager.NavigateTo($"deals/{dealId}/offers");
+    }
+}

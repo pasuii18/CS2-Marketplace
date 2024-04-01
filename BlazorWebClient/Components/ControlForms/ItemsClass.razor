@@ -1,0 +1,128 @@
+﻿<div class="row justify-content-center align-items-start">
+    <div class="col-md-3 border rounded p-4 m-3">
+        <h2>Create</h2>
+        <EditForm Model="@itemsClassCreateDto" FormName="createForm" OnSubmit="CreateSubmit">
+            <div class="mb-3">
+                <select class="form-select" @onchange="CreateValueChanged">
+                    <option class="form-option" value="0">Not Selected</option>
+                    @foreach (var itemSubClass in itemSubClasses)
+                    {
+                        <option class="form-option" value="@itemSubClass.IdItemSubClass">@itemSubClass.ItemSubClassName</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="New Class Name" @bind="@itemsClassCreateDto.ItemClassName"/>
+            </div>
+            <button type="submit" class="btn btn-dark">Create</button>
+        </EditForm>
+    </div>
+    <div class="col-md-3 border rounded p-4 m-3">
+        <h2>Update</h2>
+        <EditForm Model="@itemsClassUpdateDto" FormName="updateForm" OnSubmit="UpdateSubmit">
+            <div class="mb-3">
+                <select class="form-select" @onchange="UpdateClassValueChanged">
+                    <option class="form-option" value="0">Not Selected</option>
+                    @foreach (var itemClass in itemsClassReadDto)
+                    {
+                        <option class="form-option" value="@itemClass.IdItemClass">@itemClass.ItemClassName | @itemClass.ItemSubClassName</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
+                <select class="form-select" @onchange="UpdateSubClassValueChanged" value="@itemsClassUpdateDto.IdItemSubClass">
+                    <option class="form-option" value="0">Not Selected</option>
+                    @foreach (var itemSubClass in itemSubClasses)
+                    {
+                        <option class="form-option" value="@itemSubClass.IdItemSubClass">@itemSubClass.ItemSubClassName</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="@updateValue" @bind="@itemsClassUpdateDto.ItemClassName"/>
+            </div>
+            <button type="submit" class="btn btn-dark">Update</button>
+        </EditForm>
+    </div>
+    <div class="col-md-3 border rounded p-4 m-3">
+        <h2>Delete</h2>
+        <div class="mb-3">
+            <select class="form-select" @onchange="DeleteValueChanged">
+                <option class="form-option" value="0">Not Selected</option>
+                @foreach (var itemClassReadDto in itemsClassReadDto)
+                {
+                    <option class="form-option" value="@itemClassReadDto.IdItemClass">@itemClassReadDto.ItemClassName | @itemClassReadDto.ItemSubClassName</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-dark" @onclick="DeleteSubmit">Delete</button>
+    </div>
+</div>
+
+@code{
+    ItemsClassCreateDto itemsClassCreateDto = new ItemsClassCreateDto();
+    ItemsClassUpdateDto itemsClassUpdateDto = new ItemsClassUpdateDto();
+    int deleteValue;
+    string updateValue = "New Class Name";
+    
+    List<ItemsClassReadDto> itemsClassReadDto = new List<ItemsClassReadDto>();
+    List<ItemsSubClassReadDto> itemSubClasses = new List<ItemsSubClassReadDto>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadItemClass();
+        await LoadItemSubClasses();
+    }
+    
+    private void CreateValueChanged(ChangeEventArgs e)
+    {
+        itemsClassCreateDto.IdItemSubClass = int.Parse(e.Value.ToString());
+    }
+    private void UpdateClassValueChanged(ChangeEventArgs e)
+    {
+        itemsClassUpdateDto.IdItemClass = int.Parse(e.Value.ToString());
+        updateValue = itemsClassReadDto
+            .FirstOrDefault(value => value.IdItemClass == itemsClassUpdateDto.IdItemClass)
+            ?.ItemClassName;
+    }
+    private void UpdateSubClassValueChanged(ChangeEventArgs e)
+    {
+        itemsClassUpdateDto.IdItemSubClass = int.Parse(e.Value.ToString());
+    }
+    private void DeleteValueChanged(ChangeEventArgs e)
+    {
+        deleteValue = int.Parse(e.Value.ToString());
+    }
+    
+    private async Task LoadItemClass()
+    {
+        HttpResponseMessage response = await UserService.HttpClient.GetAsync($"{UserService.BaseUrl}/itemsclass");
+        await MessageService.ShowMessage(response);
+        if (response.IsSuccessStatusCode)
+        {
+            itemsClassReadDto = await response.Content.ReadFromJsonAsync<List<ItemsClassReadDto>>();
+        }
+    }
+    private async Task LoadItemSubClasses()
+    {
+        HttpResponseMessage response = await UserService.HttpClient.GetAsync($"{UserService.BaseUrl}/itemssubclass");
+        await MessageService.ShowMessage(response);
+        if (response.IsSuccessStatusCode) itemSubClasses = await response.Content.ReadFromJsonAsync<List<ItemsSubClassReadDto>>();
+    }
+    
+    private async Task CreateSubmit()
+    {
+        HttpResponseMessage response = await UserService.HttpClient.PostAsJsonAsync($"{UserService.BaseUrl}/itemsclass", itemsClassCreateDto);
+        await MessageService.ShowMessage(response);
+    }
+    private async Task UpdateSubmit()
+    {
+        HttpResponseMessage response = await UserService.HttpClient.PutAsJsonAsync($"{UserService.BaseUrl}/itemsclass", itemsClassUpdateDto);
+        await MessageService.ShowMessage(response);
+    }
+    private async Task DeleteSubmit()
+    {
+        HttpResponseMessage response = await UserService.HttpClient.DeleteAsync($"{UserService.BaseUrl}/itemsclass/{deleteValue}");
+        await MessageService.ShowMessage(response);
+    }
+}

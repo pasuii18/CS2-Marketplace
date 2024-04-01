@@ -1,0 +1,46 @@
+﻿<div class="container mt-3">
+    <div class="row">
+        @foreach (var deal in DealHistory)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-text">Date: @deal.Date</h6>
+            
+                        <a class="ihar-link" style="@StyleHelper.GetUserHistoryColor(deal.BuyerUUID, UserService.UserUUID, CurrentPageUserUuid)" @onclick="(() => RedirectToUser(deal.BuyerUUID))">
+                            <h6 class="card-text">Buyer: @deal.BuyerUUID</h6>
+                        </a>
+                        <a class="ihar-link" style="@StyleHelper.GetUserHistoryColor(deal.SellerUUID, UserService.UserUUID, CurrentPageUserUuid)" @onclick="(() => RedirectToUser(deal.SellerUUID))">
+                            <h6 class="card-text">Seller: @deal.SellerUUID</h6>
+                        </a>
+            
+                        <hr>
+            
+                        <a class="ihar-link" @onclick="(() => RedirectToItem(deal.Item.IdItem))">
+                            <h6 class="card-text">Item</h6>
+                        </a>
+                        <h6 class="card-title">@deal.Item.ItemTypeName / @deal.Item.ItemClassName</h6>
+                        <h5 class="card-title" style="@StyleHelper.GetRarityColor(deal.Item.Rarity)">@deal.Item.ItemSubClassName | @deal.Item.SkinName</h5>
+                        <h4 class="card-text">Price: @deal.Price$</h4>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public List<UserDealsHistoryReadDto> DealHistory { get; set; }
+    [Parameter]
+    public string CurrentPageUserUuid { get; set; }
+
+    public void RedirectToItem(int id)
+    {
+        NavManager.NavigateTo($"items/{id}");
+    }
+    public void RedirectToUser(string uuid)
+    {
+        NavManager.NavigateTo($"users/{uuid}");
+    }
+}

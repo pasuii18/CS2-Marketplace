@@ -1,0 +1,34 @@
+﻿@using BlazorWebClient.Components.Pages
+<EditForm Model="@UserDeleteDto" FormName="deleteUserForm" OnSubmit="DeleteUserSubmit">
+    <div class="row">
+        <div class="col-md-9">
+            <input type="text" class="form-control mb-1" placeholder="Current Login (Required)" style="font-size: 26px;" @bind="@UserDeleteDto.Login" />
+            <input type="password" class="form-control mb-1" placeholder="Current Password (Required)" style="font-size: 26px;" @bind="@UserDeleteDto.Password" />
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-dark" style="background-color: red; color: white;">Delete Forever</button>
+</EditForm>
+
+@code{
+    UserAuthDto UserDeleteDto = new UserAuthDto();
+
+    private async Task DeleteUserSubmit()
+    {
+        HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Delete, $"{UserService.BaseUrl}/users");
+        request.Content = JsonContent.Create(UserDeleteDto);
+        HttpResponseMessage response = await UserService.HttpClient.SendAsync(request);
+        await MessageService.ShowMessage(response);
+
+        if (response.IsSuccessStatusCode)
+        {
+            LogOut();
+        }
+    }
+    private async Task LogOut()
+    {
+        UserService.Clear();
+        NavManager.NavigateTo("/");
+        MessageService.ShowMessage("Successful LogOut!");
+    }
+}
