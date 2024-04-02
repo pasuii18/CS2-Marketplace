@@ -14,7 +14,7 @@ Technologies:
 **Run all commands in the _root_ directory!!!**
 
 ## 1. Create docker container
-Use `docker-compose up -d` to create container
+Use `docker-compose -f ./CSMarketApp/docker-compose.yaml up -d` to create and run container
 
 ## 2. Create migration
 Use `dotnet ef migrations add _<migration_name>_ --project .\CSMarketApp.Infrastructure.Data\ --startup-project CSMarketApp` to create migration
