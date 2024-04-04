@@ -7,7 +7,7 @@
         </div>
     </div>
 
-    <button type="submit" class="btn btn-dark" style="background-color: red; color: white;">Delete Forever</button>
+    <button type="submit" class="btn btn-danger">Delete Forever</button>
 </EditForm>
 
 @code{
@@ -29,6 +29,6 @@
     {
         UserService.Clear();
         NavManager.NavigateTo("/");
-        MessageService.ShowMessage("Successful LogOut!");
+        MessageService.ShowMessage("Successful Log out!");
     }
 }

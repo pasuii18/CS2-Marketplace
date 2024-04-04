@@ -12,14 +12,7 @@ namespace CSMarketApp.Infrastructure.Data.Repos.DealsRepos
         {
             _context = context;
         }
-
-        public async Task<IEnumerable<DealsHistory>> GetAllHistory()
-        {
-            return await _context.DealsHistory
-                .Include(i => i.Seller)
-                .Include(i => i.Buyer)
-                .ToListAsync();
-        }
+        
         public async Task<IEnumerable<DealsHistory>> GetAllItemHistory(int idItem)
         {
             return await _context.DealsHistory

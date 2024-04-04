@@ -1,12 +1,13 @@
 ﻿<div class="col-md-4">
     <div class="card mb-3" style="max-width: 540px;">
         <div class="row g-0">
-            <div class="col-md-4">
-                <img @onclick="(() => RedirectToUser(Deal.UUID))" src=@($"{UserService.BaseUrl}/UsersPictures/{Deal.IdUserProfilePicture ?? 0}") class="img-fluid rounded-start" alt="...">
+            <div class="col-md-6">
+                <img class="rounded ihar-cursor" style="width: 200px; height: 200px;" @onclick="(() => RedirectToUser(Deal.UUID))" src=@($"{UserService.BaseUrl}/UsersPictures/{Deal.IdUserProfilePicture ?? 0}") alt="Picture =)">
             </div>
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <div class="card-body">
-                    <h4 class="card-title">@Deal.Username</h4>
+                    <h4 class="card-title mb-3" style="@StyleHelper.GetUserColor(Deal.UUID, UserService.UserUUID)">@Deal.Username</h4>
+                    <hr />
                     <h3 class="card-text">Price: @Deal.Price$</h3>
                     <button class="btn btn-dark" @onclick="(() => RedirectToDealOffers(Deal.IdDeal))">Offers</button>
                 </div>

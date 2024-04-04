@@ -12,12 +12,6 @@ namespace CSMarketApp.Infrastructure.Data.Repos.DealsRepos
         {
             _context = context;
         }
-        public async Task<IEnumerable<DealOffers>> GetAll()
-        {
-            return await _context.DealOffers
-                .Include(dealOffer => dealOffer.Offerer)
-                .ToListAsync();
-        }
         public async Task<IEnumerable<DealOffers>> GetAllByDealId(int id)
         {
             return await _context.DealOffers

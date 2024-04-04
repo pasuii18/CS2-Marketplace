@@ -3,7 +3,13 @@
 
 @if (User == null)
 {
-    <p>Sorry. There is no info yet!</p>
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-5 border rounded p-2 mt-3 text-center">
+                <h2 class="my-auto">Sorry, there is no info yet!</h2>
+            </div>
+        </div>
+    </div>
 }
 else
 {
@@ -32,21 +38,21 @@ else
                     </div>
                     @if (UserService.UserUUID != null && UserService.UserUUID == UUID)
                     {
-                        <button class="btn btn-primary mt-4" @onclick="UpdateSwitcher">Edit Profile</button>
-                        <button class="btn btn-primary mt-4" @onclick="DeleteSwitcher">Delete Profile</button>
-                        <button class="btn btn-primary mt-4" @onclick="LogOut">LogOut</button>
+                        <button class="btn btn-success mt-4" @onclick="UpdateSwitcher">Edit Profile</button>
+                        <button class="btn btn-danger mt-4" @onclick="DeleteSwitcher">Delete Profile</button>
+                        <button class="btn btn-info mt-4" @onclick="LogOut">LogOut</button>
                     }
                     @if (!isSettingRole)
                     {
                         @if (UserService.IsSuperCoolGuy && UUID != UserService.UserUUID)
                         {
-                            <button class="btn btn-primary mt-4" @onclick="ChangeRoleSwitcher">Change Role</button>
+                            <button class="btn btn-success mt-4" @onclick="ChangeRoleSwitcher">Change Role</button>
                         }
                     }
                     else
                     {
                         <BlazorWebClient.Components.Layout.UserPage.UserRoleUpdateForm UUID="@UUID"></BlazorWebClient.Components.Layout.UserPage.UserRoleUpdateForm>
-                        <button class="btn btn-dark mb-1" @onclick="ChangeRoleSwitcher" style="font-size: 18px;">Cancel</button>
+                        <button class="btn btn-secondary mb-1" @onclick="ChangeRoleSwitcher" style="font-size: 18px;">Cancel</button>
                     }
                 </div>
             </div>

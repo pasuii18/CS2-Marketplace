@@ -16,12 +16,7 @@ namespace CSMarketApp.Controllers.DealsControllers
         {
             _service = itemsService;
         }
-
-        // [HttpGet]
-        // public async Task<ActionResult<IEnumerable<DealOffersReadDto>>> GetAll()
-        // {
-        //     return Ok(await _service.GetAll());
-        // }
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<DealOffersReadDto>>> GetAllByDealId(int id)
         {

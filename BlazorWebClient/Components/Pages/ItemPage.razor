@@ -3,7 +3,13 @@
 
 @if (Item == null)
 {
-    <p>Sorry. There is no info yet!</p>
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-5 border rounded p-2 mt-3 text-center">
+                <h2 class="my-auto">Sorry, there is no info yet!</h2>
+            </div>
+        </div>
+    </div>
 }
 else
 {
@@ -11,6 +17,11 @@ else
         <BlazorWebClient.Components.Layout.ItemPage.ItemInfo Item="Item"></BlazorWebClient.Components.Layout.ItemPage.ItemInfo>
         
         <hr />
+        
+        <BlazorWebClient.Components.Layout.ItemPage.ItemDealCreateForm IdDeal="@Id"></BlazorWebClient.Components.Layout.ItemPage.ItemDealCreateForm>
+        
+        <hr />
+        
         @if (itemHistory.Count == 0)
         {
             <h2>No one buying this item. Sad =(</h2>
@@ -55,6 +66,7 @@ else
         if (response.IsSuccessStatusCode)
         {
             Item = await response.Content.ReadFromJsonAsync<ItemDetailedReadDto>();
+            Item.ItemDeals = Item.ItemDeals.OrderBy(deal => deal.Price).ToList();
         }
     }
     private async Task LoadItemHistory()

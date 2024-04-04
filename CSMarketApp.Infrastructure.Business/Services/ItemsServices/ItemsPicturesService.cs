@@ -11,20 +11,13 @@ namespace CSMarketApp.Infrastructure.Business.Services.ItemsServices
     public class ItemsPicturesService : IItemsPicturesService
     {
         private readonly IItemsPicturesRepo _repo;
-        private readonly IMapper _mapper;
         private const string DefaultItemPicture = "images\\ItemsPictures\\default.jpg";
 
-        public ItemsPicturesService(IItemsPicturesRepo repo, IMapper mapper)
+        public ItemsPicturesService(IItemsPicturesRepo repo)
         {
             _repo = repo;
-            _mapper = mapper;
         }
-
-        public async Task<IEnumerable<ItemsPicturesReadDto>> GetAll()
-        {
-            var records = await _repo.GetAll();
-            return _mapper.Map<IEnumerable<ItemsPicturesReadDto>>(records);
-        }
+        
         public async Task<byte[]> GetById(int id)
         {
             if (id == 0)
@@ -48,17 +41,6 @@ namespace CSMarketApp.Infrastructure.Business.Services.ItemsServices
 
             var fileBytes = System.IO.File.ReadAllBytes(filePath);
             return fileBytes;
-        }
-        public async Task<string> Delete(int id)
-        {
-            var record = await _repo.GetById(id);
-            if (record == null)
-            {
-                throw new KeyNotFoundException("Picture with your ID is not found!");
-            }
-            _repo.Delete(record);
-            await _repo.SaveChanges();
-            return "Profile picture was deleted succesfully!";
         }
     }
 }

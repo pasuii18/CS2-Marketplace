@@ -1,0 +1,35 @@
+﻿<div class="row justify-content-center align-items-start">
+    <div class="col-md-3 border rounded p-4 m-3">
+        <EditForm Model="@dealCreateDto" FormName="dealCreateForm" OnSubmit="CreateDeal">
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="Price" @bind="@priceAsString"/>
+            </div>
+            <div class="row">
+                <button type="submit" class="btn btn-dark float-bottom">Make a Deal!</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string IdDeal { get; set; }
+    private DealCreateDto dealCreateDto = new DealCreateDto();
+    private string priceAsString;
+    
+    private async Task CreateDeal()
+    {
+        await MessageService.ShowMessage(IdDeal);
+        if (decimal.TryParse(priceAsString, out decimal result))
+        {
+            dealCreateDto.Price = result;
+            dealCreateDto.IdItem = int.Parse(IdDeal);
+            HttpResponseMessage response = await UserService.HttpClient.PostAsJsonAsync($"{UserService.BaseUrl}/deals/create", dealCreateDto);
+            await MessageService.ShowMessage(response);
+        }
+        else
+        {
+            await MessageService.ShowMessage("Incorrect Price! Correct format: 12,34 or 12");
+        }   
+    }
+}

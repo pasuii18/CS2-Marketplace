@@ -24,15 +24,6 @@ namespace CSMarketApp.Infrastructure.Business.Services.ItemsServices.Class
             var records = await _repo.GetAll();
             return _mapper.Map<IEnumerable<ClassCharacteristicsReadDto>>(records);
         }
-        public async Task<ClassCharacteristicsReadDto> GetById(int id)
-        {
-            var record = await _repo.GetById(id);
-            if (record == null)
-            {
-                throw new KeyNotFoundException("ClassCharacteristic with your ID is not found!");
-            }
-            return _mapper.Map<ClassCharacteristicsReadDto>(record);
-        }
         public async Task<RecordIdReadDto> Create(ClassCharacteristicsCreateDto createDto)
         {
             var record = await _repo.GetByName(createDto.ClassCharacteristicName);

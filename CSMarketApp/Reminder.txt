@@ -2,3 +2,81 @@
 dotnet ef migrations add init --project .\CSMarketApp.Infrastructure.Data\ --startup-project CSMarketApp
 dotnet ef database update --project .\CSMarketApp.Infrastructure.Data\ --startup-project CSMarketApp
 --verbose
+
+почистить репо и сделать интерфейсы
+
+version: '3.8'
+services:
+  sqlserver: 
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "pa55w0rd!"
+      MSSQL_PID: "Express"
+    ports:
+      - "1433:1433"
+      
+      
+docker build -t csmarketapp ./CSMarketApp
+docker build -t blazorwebclient ./BlazorWebClient
+
+docker build -f CSMarketApp\Dockerfile --force-rm -t csmarketapp .
+docker build -f BlazorWebClient\Dockerfile --force-rm -t blazorwebclient .
+
+docker-compose -f ./CSMarketApp/docker-compose.yaml up -d  
+
+version: '3.8'
+services:
+  csmarketapp:
+    build:
+      context: ./CSMarketApp
+      dockerfile: Dockerfile
+    ports:
+      - "7274:80"
+    depends_on:
+      - sqlserver
+
+  blazorwebclient:
+    build:
+      context: ./BlazorWebClient
+      dockerfile: Dockerfile
+    ports:
+      - "7285:8080"
+
+  sqlserver:
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "pa55w0rd!"
+      MSSQL_PID: "Express"
+    ports:
+      - "1433:1433"
+
+      /////////////////////////////////////////////////////////////////////////////////
+
+version: '3.8'
+services:
+  csmarketapp:
+    image: csmarketapp:latest
+    ports:
+      - "7274:80"
+    depends_on:
+      - sqlserver
+    environment:
+      - UserId=${UserId}
+      - Password=${Password}
+    restart: always
+  
+  blazorwebclient:
+    image: blazorwebclient:latest
+    ports:
+      - "7285:8080"
+  
+  sqlserver:
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "pa55w0rd!"
+      MSSQL_PID: "Express"
+    ports:
+      - "1433:1433"

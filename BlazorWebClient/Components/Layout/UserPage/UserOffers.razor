@@ -2,7 +2,7 @@
     @if (Deal != null)
     {
         <div class="card mb-2 shadow-sm">
-            <img class="card-img-top ihar-img" style="width: 290px; height: 220px" @onclick="(() => RedirectToItem(Deal.IdItem))" src=@($"{UserService.BaseUrl}/ItemsPictures/{Deal.IdItemPicture}")>
+            <img class="card-img-top ihar-img ihar-cursor" style="width: 290px; height: 220px; margin: 10px" @onclick="(() => RedirectToItem(Deal.IdItem))" src=@($"{UserService.BaseUrl}/ItemsPictures/{Deal.IdItemPicture}")>
             <div class="card-body">
                 <h6 class="card-title">@Deal.ItemTypeName / @Deal.ItemClassName</h6>
                 <h5 class="card-title" style="@StyleHelper.GetRarityColor(Deal.Rarity)">@Deal.ItemSubClassName | @Deal.SkinName</h5>
@@ -10,10 +10,10 @@
                 <hr/>
                 
                 <a class="ihar-link" @onclick="(() => RedirectToUser(Deal.UserUUID))">
-                    <h5 class="card-title">Username: @Deal.Username</h5>
+                    <h5 class="card-title">User: @Deal.Username</h5>
                 </a>
                 <h4 class="card-text">Price: @Deal.Price$</h4>
-                <div class="row">
+                <div class="row m-1">
                     <button class="btn btn-dark" @onclick="(() => RedirectToDealOffers(Deal.IdDeal))">Offers</button>
                 </div>
                 
@@ -26,14 +26,14 @@
                     <h4 class="card-text">Price: @Offer.OfferPrice$</h4>
                     @if (Offer.OffererUUID == UserService.UserUUID)
                     {
-                        <div class="row">
+                        <div class="row m-1">
                             <button class="btn btn-dark mb-1" @onclick="EditingSwitch">Edit Offer</button>
-                            <button class="btn btn-dark" @onclick="() => DeleteOffer(Offer.IdDealOffer)">Delete Offer</button>
+                            <button class="btn btn-danger" @onclick="() => DeleteOffer(Offer.IdDealOffer)">Delete Offer</button>
                         </div>
                     }
-                    else
+                    else if(Deal.UserUUID == UserService.UserUUID)
                     {
-                        <div class="row">
+                        <div class="row m-1">
                             <button class="btn btn-primary" @onclick="() => AcceptOffer(Offer.IdDeal, Offer.IdDealOffer)">Accept Offer</button>
                         </div>
                     }
@@ -45,11 +45,11 @@
                         <ValidationSummary />
 
                         <input type="text" class="form-control mb-1" placeholder="@Offer.OfferPrice" @bind="@priceAsString" />
-                        <div class="row">
+                        <div class="row m-1">
                             <button type="submit" class="btn btn-primary mb-1">Edit Offer</button>
                         </div>
                     </EditForm>
-                    <div class="row">
+                    <div class="row m-1">
                         <button class="btn btn-dark" @onclick="EditingSwitch">Cancel</button>
                     </div>
                 }

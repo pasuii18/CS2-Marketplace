@@ -23,11 +23,7 @@ namespace CSMarketApp.Controllers.ItemsControllers.Type
         {
             return Ok(await _service.GetAll());
         }
-        // [HttpGet("{id}")]
-        // public async Task<ActionResult<TypeCharacteristicsReadDto>> GetById(int id)
-        // {
-        //     return Ok(await _service.GetById(id));
-        // }
+
         [HttpPost]
         public async Task<ActionResult> Create(TypeCharacteristicsCreateDto createDto)
         {

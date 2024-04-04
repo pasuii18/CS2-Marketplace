@@ -6,7 +6,6 @@ namespace CSMarketApp.Services.Interfaces.ServicesInterfaces.DealsInterfaces
 {
     public interface IDealsService
     {
-        Task<IEnumerable<DealReadDto>> GetAllDeals();
         Task<DealReadDto> GetDealById(int id);
         Task<IEnumerable<DealOffersReadDto>> GetDealOffers(int id);
         Task DeleteDeal(int id, string uuid);

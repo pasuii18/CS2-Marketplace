@@ -77,7 +77,6 @@ namespace CSMarketApp
             builder.Services.AddScoped<IDealsService, DealsService>();
             builder.Services.AddScoped<IDealOffersService, DealOffersService>();
             builder.Services.AddScoped<IRolesService, RolesService>();
-            builder.Services.AddScoped<IDealsHistoryService, DealsHistoryService>();
             builder.Services.AddScoped<IItemsPicturesService, ItemsPicturesService>();
             builder.Services.AddScoped<IItemsClassCharacteristicsService, ItemsClassCharacteristicsService>();
             builder.Services.AddScoped<IItemsTypeCharacteristicsService, ItemsTypeCharacteristicsService>();

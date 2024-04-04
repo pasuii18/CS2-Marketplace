@@ -26,12 +26,6 @@ public class ItemsSkinsController : Controller
         return Ok(await _itemsSkinsService.GetAllSkins());
     }
 
-    // [HttpGet("{id}")]
-    // public async Task<ActionResult<ItemDetailedReadDto>> GetSkinById(int id)
-    // {
-    //     return Ok(await _itemsSkinsService.GetById(id));
-    // }
-
     [HttpPost]
     public async Task<ActionResult<string>> Create(SkinsCreateDto createDto)
     {

@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>cb256b45-8c02-4954-9b90-bf0316d12939</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,6 +28,12 @@
     <ProjectReference Include="..\CSMarketApp.Infrastructure.Business\CSMarketApp.Infrastructure.Business.csproj" />
     <ProjectReference Include="..\CSMarketApp.Infrastructure.Data\CSMarketApp.Infrastructure.Data.csproj" />
     <ProjectReference Include="..\CSMarketApp.Services.Interfaces\CSMarketApp.Services.Interfaces.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\.dockerignore">
+      <Link>.dockerignore</Link>
+    </Content>
   </ItemGroup>
 
 </Project>

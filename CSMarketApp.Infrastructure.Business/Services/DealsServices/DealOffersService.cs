@@ -22,12 +22,7 @@ namespace CSMarketApp.Infrastructure.Business.Services.DealsServices
             _usersRepo = usersRepo;
             _mapper = mapper;
         }
-
-        public async Task<IEnumerable<DealOffersReadDto>> GetAll()
-        {
-            var records = await _repo.GetAll();
-            return _mapper.Map<IEnumerable<DealOffersReadDto>>(records);
-        }
+        
         public async Task<IEnumerable<DealOffersReadDto>> GetAllByDealId(int id)
         {
             var record = await _repo.GetAllByDealId(id);

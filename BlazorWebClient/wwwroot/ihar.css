@@ -8,8 +8,10 @@
     text-decoration: underline;
 }
 
-.ihar-img{
+.ihar-cursor{
     cursor: pointer;
+}
+.ihar-img{
     transition: 0.5s;
 }
 .ihar-img:hover{

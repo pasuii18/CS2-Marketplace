@@ -24,15 +24,6 @@ namespace CSMarketApp.Infrastructure.Business.Services.ItemsServices.SubClass
             var records = await _repo.GetAll();
             return _mapper.Map<IEnumerable<ItemsSubClassReadDto>>(records);
         }
-        public async Task<ItemsSubClassReadDto> GetById(int id)
-        {
-            var record = await _repo.GetById(id);
-            if (record == null)
-            {
-                throw new KeyNotFoundException("ItemSubClass with your ID is not found!");
-            }
-            return _mapper.Map<ItemsSubClassReadDto>(record);
-        }
         public async Task<RecordIdReadDto> Create(ItemsSubClassCreateDto createDto)
         {
             var record = await _repo.GetByName(createDto.ItemSubClassName);

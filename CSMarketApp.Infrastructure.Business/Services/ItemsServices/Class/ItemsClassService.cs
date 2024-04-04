@@ -23,15 +23,6 @@ namespace CSMarketApp.Infrastructure.Business.Services.ItemsServices.Class
             var records = await _repo.GetAll();
             return _mapper.Map<IEnumerable<ItemsClassReadDto>>(records);
         }
-        public async Task<ItemsClassReadDto> GetById(int id)
-        {
-            var record = await _repo.GetById(id);
-            if (record == null)
-            {
-                throw new KeyNotFoundException("ItemClass with your ID is not found!");
-            }
-            return _mapper.Map<ItemsClassReadDto>(record);
-        }
         public async Task<RecordIdReadDto> Create(ItemsClassCreateDto createDto)
         {
             var model = _mapper.Map<ItemsClass>(createDto);

@@ -1,12 +1,16 @@
 ﻿@page "/"
 @rendermode InteractiveServer
 
-<div class="container sm-6">
-    <h1>Welcome to the CSMarket!</h1>
-    
+<div class="container sm-6 mt-3">
     @if (Items == null || Items.Count == 0)
     {
-        <p>Sorry. There is no items yet!</p>
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-5 border rounded p-2 mt-3 text-center">
+                    <h2 class="my-auto">Sorry, there is no items yet!</h2>
+                </div>
+            </div>
+        </div>
     }
     else
     {

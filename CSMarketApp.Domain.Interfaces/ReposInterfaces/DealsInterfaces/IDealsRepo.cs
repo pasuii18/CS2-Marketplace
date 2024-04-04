@@ -6,7 +6,6 @@ namespace CSMarketApp.Domain.Interfaces.ReposInterfaces.DealsInterfaces
     {
         Task SaveChanges();
         Task<Deals?> GetRowById(int id);
-        Task<IEnumerable<Deals>> GetAllRows();
         Task<IEnumerable<Deals>> GetUserRows(int id);
         Task<IEnumerable<Deals?>> GetItemRows(int id);
         Task CreateRow(Deals row);

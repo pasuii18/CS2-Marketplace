@@ -1,6 +1,6 @@
 ﻿<div class="col-md-3">
     <div class="card mb-2 shadow-sm">
-        <img class="card-img-top" style="width: 290px; height: 220px" @onclick="(() => ItemChoose(Item.IdItem))" src=@($"{UserService.BaseUrl}/ItemsPictures/{Item.IdItemPicture}")>
+        <img class="card-img-top ihar-img ihar-cursor" style="width: 290px; height: 220px; margin: 10px" @onclick="(() => ItemChoose(Item.IdItem))" src=@($"{UserService.BaseUrl}/ItemsPictures/{Item.IdItemPicture}")>
         <div class="card-body">
             <h6 class="card-title">@Item.ItemTypeName / @Item.ItemClassName</h6>
             <h5 class="card-title" style="@StyleHelper.GetRarityColor(Item.Rarity)">@Item.ItemSubClassName | @Item.SkinName</h5>

@@ -370,7 +370,7 @@ namespace CSMarketApp.Infrastructure.Data
                 new ItemsSubClass { IdItemSubClass = 36, ItemSubClassName = "Bowie" },
                 new ItemsSubClass { IdItemSubClass = 37, ItemSubClassName = "Butterfly" },
                 new ItemsSubClass { IdItemSubClass = 38, ItemSubClassName = "Classic" },
-                new ItemsSubClass { IdItemSubClass = 39, ItemSubClassName = "Falchion" },
+                new ItemsSubClass { IdItemSubClass = 39, ItemSubClassName = "Falshion" },
                 new ItemsSubClass { IdItemSubClass = 40, ItemSubClassName = "Flip" },
                 new ItemsSubClass { IdItemSubClass = 41, ItemSubClassName = "Gut" },
                 new ItemsSubClass { IdItemSubClass = 42, ItemSubClassName = "Huntsman" },
@@ -392,15 +392,17 @@ namespace CSMarketApp.Infrastructure.Data
                 new ItemsSubClass { IdItemSubClass = 58, ItemSubClassName = "Bloodhound" },
                 new ItemsSubClass { IdItemSubClass = 59, ItemSubClassName = "Hydra" },
                 new ItemsSubClass { IdItemSubClass = 60, ItemSubClassName = "Broken Fang" },
-                new ItemsSubClass { IdItemSubClass = 61, ItemSubClassName = "Driver" }
+                new ItemsSubClass { IdItemSubClass = 61, ItemSubClassName = "Driver" },
+                new ItemsSubClass { IdItemSubClass = 62, ItemSubClassName = "Music Kit" },
+                new ItemsSubClass { IdItemSubClass = 63, ItemSubClassName = "Case" }
             );
 
             // CLASS LEVEL
             AddDbRows<ItemsClass>(modelBuilder,
-            new ItemsClass { IdItemClass = 1, IdItemSubClass = 1, ItemClassName = "Pistol" },
-            new ItemsClass { IdItemClass = 2, IdItemSubClass = 32, ItemClassName = "Rifle" },
-            new ItemsClass { IdItemClass = 3, IdItemSubClass = 59, ItemClassName = "Gloves" },
-            new ItemsClass { IdItemClass = 4, IdItemSubClass = 44, ItemClassName = "Knife" }
+            new ItemsClass { IdItemClass = 1, IdItemSubClass = 63, ItemClassName = "Case" },
+            new ItemsClass { IdItemClass = 2, IdItemSubClass = 9, ItemClassName = "Pistol" },
+            new ItemsClass { IdItemClass = 3, IdItemSubClass = 27, ItemClassName = "Rifle" },
+            new ItemsClass { IdItemClass = 4, IdItemSubClass = 62, ItemClassName = "Music Kit" }
             );
 
             AddDbRows<ClassCharacteristics>(modelBuilder,
@@ -408,37 +410,39 @@ namespace CSMarketApp.Infrastructure.Data
             new ClassCharacteristics { IdClassCharacteristic = 2, ClassCharacteristicName = "Optical Scope" },
             new ClassCharacteristics { IdClassCharacteristic = 3, ClassCharacteristicName = "Magazine Capacity" },
             new ClassCharacteristics { IdClassCharacteristic = 4, ClassCharacteristicName = "Fire Rate" },
-            new ClassCharacteristics { IdClassCharacteristic = 5, ClassCharacteristicName = "Blade Lenght" },
+            new ClassCharacteristics { IdClassCharacteristic = 5, ClassCharacteristicName = "Blade Length" },
             new ClassCharacteristics { IdClassCharacteristic = 6, ClassCharacteristicName = "Material" },
             new ClassCharacteristics { IdClassCharacteristic = 7, ClassCharacteristicName = "Patch Place" },
             new ClassCharacteristics { IdClassCharacteristic = 8, ClassCharacteristicName = "Agent Game Side" }
             );
 
             AddDbRows<ItemsClassCharacteristics>(modelBuilder,
-            new ItemsClassCharacteristics { IdItemClass = 1, IdClassCharacteristic = 1, ClassCharacteristicValue = "1800m" },
-            new ItemsClassCharacteristics { IdItemClass = 2, IdClassCharacteristic = 3, ClassCharacteristicValue = "24 bullets" },
-            new ItemsClassCharacteristics { IdItemClass = 3, IdClassCharacteristic = 6, ClassCharacteristicValue = "Leather" },
-            new ItemsClassCharacteristics { IdItemClass = 4, IdClassCharacteristic = 5, ClassCharacteristicValue = "9cm" }
+            new ItemsClassCharacteristics { IdItemClass = 2, IdClassCharacteristic = 1, ClassCharacteristicValue = "1800m" },
+            new ItemsClassCharacteristics { IdItemClass = 2, IdClassCharacteristic = 2, ClassCharacteristicValue = "No" },
+            new ItemsClassCharacteristics { IdItemClass = 2, IdClassCharacteristic = 3, ClassCharacteristicValue = "7 bullets" },
+            new ItemsClassCharacteristics { IdItemClass = 3, IdClassCharacteristic = 4, ClassCharacteristicValue = "3bps" },
+            new ItemsClassCharacteristics { IdItemClass = 3, IdClassCharacteristic = 3, ClassCharacteristicValue = "30 bullets" }
             );
 
             // TYPE LEVEL
             AddDbRows<ItemsType>(modelBuilder,
-            new ItemsType { IdItemType = 1, IdItemClass = 2, ItemTypeName = "Weapon" },
-            new ItemsType { IdItemType = 2, IdItemClass = 4, ItemTypeName = "Accessories" },
-            new ItemsType { IdItemType = 3, IdItemClass = 3, ItemTypeName = "Lootboxes" },
-            new ItemsType { IdItemType = 4, IdItemClass = 1, ItemTypeName = "Weapon" }
+            new ItemsType { IdItemType = 1, IdItemClass = 1, ItemTypeName = "Lootboxes" },
+            new ItemsType { IdItemType = 2, IdItemClass = 2, ItemTypeName = "Weapon" },
+            new ItemsType { IdItemType = 3, IdItemClass = 3, ItemTypeName = "Weapon" },
+            new ItemsType { IdItemType = 4, IdItemClass = 4, ItemTypeName = "Accessories" }
             );
 
             AddDbRows<TypeCharacteristics>(modelBuilder,
             new TypeCharacteristics { IdTypeCharacteristic = 1, TypeCharacteristicName = "Release Year" },
-            new TypeCharacteristics { IdTypeCharacteristic = 2, TypeCharacteristicName = "Stattrack" },
-            new TypeCharacteristics { IdTypeCharacteristic = 3, TypeCharacteristicName = "Release Season" }
+            new TypeCharacteristics { IdTypeCharacteristic = 2, TypeCharacteristicName = "Release Season" },
+            new TypeCharacteristics { IdTypeCharacteristic = 3, TypeCharacteristicName = "Stat-track" }
             );
 
             AddDbRows<ItemsTypeCharacteristics>(modelBuilder,
-            new ItemsTypeCharacteristics { IdItemType = 1, IdTypeCharacteristic = 1, TypeCharacteristicValue = "2022" },
-            new ItemsTypeCharacteristics { IdItemType = 1, IdTypeCharacteristic = 2, TypeCharacteristicValue = "Yes" },
-            new ItemsTypeCharacteristics { IdItemType = 4, IdTypeCharacteristic = 3, TypeCharacteristicValue = "Spring" }
+            new ItemsTypeCharacteristics { IdItemType = 1, IdTypeCharacteristic = 1, TypeCharacteristicValue = "2023" },
+            new ItemsTypeCharacteristics { IdItemType = 1, IdTypeCharacteristic = 2, TypeCharacteristicValue = "Spring" },
+            new ItemsTypeCharacteristics { IdItemType = 3, IdTypeCharacteristic = 3, TypeCharacteristicValue = "Yes" },
+            new ItemsTypeCharacteristics { IdItemType = 4, IdTypeCharacteristic = 1, TypeCharacteristicValue = "2024" }
             );
 
             AddDbRows<ItemsPictures>(modelBuilder,
@@ -449,28 +453,29 @@ namespace CSMarketApp.Infrastructure.Data
             );
 
             AddDbRows<Skins>(modelBuilder,
-            new Skins { IdSkin = 1, SkinName = "2021 IEM Stockgholm Mirage" },
-            new Skins { IdSkin = 2, SkinName = "Marble Fade" },
-            new Skins { IdSkin = 3, SkinName = "Aziimov" },
-            new Skins { IdSkin = 4, SkinName = "Natus Vincere RMR 2022" }
+            new Skins { IdSkin = 1, SkinName = "SnakeBite" },
+            new Skins { IdSkin = 2, SkinName = "Strealkovaya" },
+            new Skins { IdSkin = 3, SkinName = "Forest Boreal" },
+            new Skins { IdSkin = 4, SkinName = "ISOxo - inhuman" }
             );
 
             // ITEM LEVEL
             AddDbRows<Items>(modelBuilder,
-            new Items { IdItem = 1, IdItemType = 3, IdItemPicture = 1, IdSkin = 1, Rarity = 1 },
+            new Items { IdItem = 1, IdItemType = 1, IdItemPicture = 1, IdSkin = 1, Rarity = 2 },
             new Items { IdItem = 2, IdItemType = 2, IdItemPicture = 2, IdSkin = 2, Rarity = 3 },
-            new Items { IdItem = 3, IdItemType = 4, IdItemPicture = 3, IdSkin = 3, Rarity = 2 },
-            new Items { IdItem = 4, IdItemType = 1, IdItemPicture = 4, IdSkin = 4, Rarity = 4 }
+            new Items { IdItem = 3, IdItemType = 3, IdItemPicture = 3, IdSkin = 3, Rarity = 1 },
+            new Items { IdItem = 4, IdItemType = 4, IdItemPicture = 4, IdSkin = 4, Rarity = 2 }
             );
 
             AddDbRows<Deals>(modelBuilder,
-            new Deals { IdDeal = 1, IdItem = 1, IdUser = 1, Price = 5.00m},
-            new Deals { IdDeal = 2, IdItem = 2, IdUser = 2, Price = 123.00m},
-            new Deals { IdDeal = 3, IdItem = 3, IdUser = 3, Price = 123.00m},
-            new Deals { IdDeal = 4, IdItem = 4, IdUser = 4, Price = 77.00m},
-            new Deals { IdDeal = 5, IdItem = 1, IdUser = 2, Price = 567.00m},
-            new Deals { IdDeal = 6, IdItem = 2, IdUser = 3, Price = 134.00m},
-            new Deals { IdDeal = 7, IdItem = 3, IdUser = 1, Price = 15.00m}
+            new Deals { IdDeal = 1, IdItem = 1, IdUser = 1, Price = 0.36m},
+            new Deals { IdDeal = 2, IdItem = 2, IdUser = 2, Price = 2.02m},
+            new Deals { IdDeal = 3, IdItem = 3, IdUser = 3, Price = 0.22m},
+            new Deals { IdDeal = 4, IdItem = 4, IdUser = 4, Price = 4.67m},
+            new Deals { IdDeal = 5, IdItem = 1, IdUser = 2, Price = 0.42m},
+            new Deals { IdDeal = 6, IdItem = 2, IdUser = 3, Price = 1.97m},
+            new Deals { IdDeal = 7, IdItem = 3, IdUser = 4, Price = 0.23m},
+            new Deals { IdDeal = 8, IdItem = 4, IdUser = 1, Price = 4.80m}
             );
 
             AddDbRows<Roles>(modelBuilder,
@@ -480,29 +485,39 @@ namespace CSMarketApp.Infrastructure.Data
             );
 
             AddDbRows<UsersPictures>(modelBuilder,
-            new UsersPictures { IdUserProfilePicture = 1, PicturePath = "images\\UsersProfilePictures\\1a2418ab-8adf-4015-9303-6b9dfbd34570.jpg" },
-            new UsersPictures { IdUserProfilePicture = 2, PicturePath = "images\\UsersProfilePictures\\a53255aa-32f7-45d6-b403-cf3a51976641.jpg" }
+            new UsersPictures { IdUserProfilePicture = 1, PicturePath = "images\\UsersProfilePictures\\Arseny.jpg" },
+            new UsersPictures { IdUserProfilePicture = 2, PicturePath = "images\\UsersProfilePictures\\Roma.jpg" },
+            new UsersPictures { IdUserProfilePicture = 3, PicturePath = "images\\UsersProfilePictures\\Kirill.jpg" },
+            new UsersPictures { IdUserProfilePicture = 4, PicturePath = "images\\UsersProfilePictures\\Serega.jpg" }
             );
 
             AddDbRows<Users>(modelBuilder,
-            new Users { IdUser = 1, UUID = "1", Username = "zxc", Login = "zxc", Password = "zxc", Description = "zxc" },
-            new Users { IdUser = 2, UUID = "2", Username = "asd", Login = "asd", Password = "asd", Description = "asd" },
-            new Users { IdUser = 3, IdRole = 2, UUID = "3", Username = "qwe", Login = "qwe", Password = "qwe", Description = "qwe" },
-            new Users { IdUser = 4, UUID = "4", Username = "123", Login = "123", Password = "123", Description = "123" }
+            new Users { IdUser = 1, IdUserProfilePicture = 1, UUID = "1", Username = "Arseny", Login = "arseny", Password = "123", Description = "Hi! My name is Arseny Trubilo." },
+            new Users { IdUser = 2, IdUserProfilePicture = 2, UUID = "2", Username = "Roma", Login = "roma", Password = "123", Description = "Certified Boykisser" },
+            new Users { IdUser = 3, IdUserProfilePicture = 3, IdRole = 3, UUID = "3", Username = "Kirim", Login = "kirill", Password = "123", Description = "Мир - картофелина" },
+            new Users { IdUser = 4, IdUserProfilePicture = 4, UUID = "4", Username = "Серега Крутой 78рус", Login = "serega", Password = "123", Description = "<h2>HELLO??????</h2>" }
             );
 
             AddDbRows<DealOffers>(modelBuilder,
-            new DealOffers { IdDealOffer = 1, IdDeal = 1, IdOfferer = 2, OfferPrice = 14.50m },
-            new DealOffers { IdDealOffer = 2, IdDeal = 2, IdOfferer = 3, OfferPrice = 13.15m },
-            new DealOffers { IdDealOffer = 3, IdDeal = 3, IdOfferer = 4, OfferPrice = 50.00m },
-            new DealOffers { IdDealOffer = 4, IdDeal = 3, IdOfferer = 1, OfferPrice = 90.56m },
-            new DealOffers { IdDealOffer = 5, IdDeal = 4, IdOfferer = 1, OfferPrice = 1.11m }
+            new DealOffers { IdDealOffer = 1, IdDeal = 1, IdOfferer = 4, OfferPrice = 0.34m },
+            new DealOffers { IdDealOffer = 2, IdDeal = 2, IdOfferer = 3, OfferPrice = 1.80m },
+            new DealOffers { IdDealOffer = 3, IdDeal = 3, IdOfferer = 2, OfferPrice = 0.18m },
+            new DealOffers { IdDealOffer = 4, IdDeal = 4, IdOfferer = 1, OfferPrice = 4.23m },
+            new DealOffers { IdDealOffer = 5, IdDeal = 1, IdOfferer = 3, OfferPrice = 0.35m },
+            new DealOffers { IdDealOffer = 6, IdDeal = 2, IdOfferer = 1, OfferPrice = 1.81m },
+            new DealOffers { IdDealOffer = 7, IdDeal = 3, IdOfferer = 4, OfferPrice = 0.19m },
+            new DealOffers { IdDealOffer = 8, IdDeal = 4, IdOfferer = 2, OfferPrice = 4.24m }
             );
 
             AddDbRows<DealsHistory>(modelBuilder,
-            new DealsHistory { IdDealsHistory = 1, IdItem = 1, IdBuyer = 1, IdSeller = 2, Price = 12.45m, Date = DateTime.Now },
-            new DealsHistory { IdDealsHistory = 2, IdItem = 1, IdBuyer = 2, IdSeller = 4, Price = 11.90m, Date = DateTime.Now },
-            new DealsHistory { IdDealsHistory = 3, IdItem = 3, IdBuyer = 3, IdSeller = 1, Price = 67.12m, Date = DateTime.Now }
+            new DealsHistory { IdDealsHistory = 1, IdItem = 1, IdBuyer = 1, IdSeller = 3, Price = 0.37m, Date = DateTime.Now.AddHours(-24) },
+            new DealsHistory { IdDealsHistory = 2, IdItem = 1, IdBuyer = 2, IdSeller = 1, Price = 0.34m, Date = DateTime.Now.AddHours(-40) },
+            new DealsHistory { IdDealsHistory = 3, IdItem = 2, IdBuyer = 4, IdSeller = 2, Price = 2.01m, Date = DateTime.Now.AddHours(-20) },
+            new DealsHistory { IdDealsHistory = 4, IdItem = 2, IdBuyer = 3, IdSeller = 4, Price = 2.13m, Date = DateTime.Now.AddHours(-45) },
+            new DealsHistory { IdDealsHistory = 5, IdItem = 3, IdBuyer = 1, IdSeller = 2, Price = 0.23m, Date = DateTime.Now.AddHours(-60) },
+            new DealsHistory { IdDealsHistory = 6, IdItem = 3, IdBuyer = 2, IdSeller = 4, Price = 0.20m, Date = DateTime.Now.AddHours(-6) },
+            new DealsHistory { IdDealsHistory = 7, IdItem = 4, IdBuyer = 3, IdSeller = 1, Price = 4.98m, Date = DateTime.Now.AddHours(-24) },
+            new DealsHistory { IdDealsHistory = 8, IdItem = 4, IdBuyer = 4, IdSeller = 3, Price = 5.02m, Date = DateTime.Now.AddHours(-80) }
             );
         }
         private static void AddDbRows<T>(ModelBuilder modelBuilder, params T[] entities) where T : class

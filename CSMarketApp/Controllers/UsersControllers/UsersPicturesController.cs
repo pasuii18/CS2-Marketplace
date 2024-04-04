@@ -15,25 +15,12 @@ namespace CSMarketApp.Controllers.UsersControllers
         {
             _service = service;
         }
-
-        // [HttpGet]
-        // public async Task<ActionResult<IEnumerable<UsersPicturesReadDto>>> GetAll()
-        // {
-        //     return Ok(await _service.GetAll());
-        // }
-
+        
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             byte[] fileBytes = await _service.GetById(id);
             return File(fileBytes, "image/jpeg");
         }
-
-        // [HttpDelete]
-        // [Authorize]
-        // public async Task<ActionResult<string>> Delete(int id)
-        // {
-        //     return Accepted(await _service.Delete(id));
-        // }
     }
 }

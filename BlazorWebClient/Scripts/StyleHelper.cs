@@ -35,5 +35,11 @@ namespace BlazorWebClient.Scripts
                 (userUuid == pageUserUuid) ? "color: rgb(59, 203, 255);" :
                 "color: black;";
         }
+        
+        public static string GetUserColor(string userUuid, string currentUserUuid)
+        {
+            return (userUuid == currentUserUuid) ? "color: rgb(255, 170, 59);" :
+                "color: black;";
+        }
     }
 }

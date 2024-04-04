@@ -7,44 +7,69 @@
 }
 else
 {
-    if(DealOffers.Count == 0)
-    {
-        <p>Sorry, there is no offers yet!</p>
-    }
 
     if (UserService.IsUserLoggedIn && Deal.UserUUID != UserService.UserUUID)
     {
-        <EditForm Model="@offerCreateDto" FormName="offerCreateForm" OnValidSubmit="CreateOffer">
-            <InputText id="price" type="text" class="form-control" @bind-Value="@priceAsString" />
-            <button type="submit" class="btn btn-dark float-bottom">Make Offer!</button>
-        </EditForm>
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-3 border rounded p-4 m-3">
+                    <EditForm Model="@offerCreateDto" FormName="offerCreateForm" OnValidSubmit="CreateOffer">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Price" @bind="@priceAsString"/>
+                        </div>
+                        <div class="row">
+                            <button type="submit" class="btn btn-dark">Make an Offer!</button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    }
+    
+    if(DealOffers.Count == 0)
+    {
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-5 border rounded p-2 mt-3 text-center">
+                    <h2 class="my-auto">There is no offers yet!</h2>
+                </div>
+            </div>
+        </div>
     }
     
     if(DealOffers.Count != 0)
     {
         <div class="container">
-            @if (@DealOffers != null && DealOffers.Any())
-            {
-                @foreach (var offer in DealOffers)
+            <div class="row justify-content-center align-items-center">
+                @if (@DealOffers != null && DealOffers.Any())
                 {
-                    <div class="row">
-                        <div class="col-md-9">
-                            <div class="card mb-6">
-                                <a class="nav-link text-black" @onclick="(() => UserChoose(offer.OffererUUID))">
-                                    <h6 class="card-text">Offerer UUID: @offer.OffererUUID</h6>
-                                </a>
-                                <h5 class="card-text">Price: @offer.OfferPrice$</h5>
+                    @foreach (var offer in DealOffers)
+                    {
+                        <div class="col-md-3 mb-3">
+                            <div class="card p-3">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <a class="ihar-link" @onclick="(() => UserChoose(offer.OffererUUID))">
+                                            <h6 class="card-text" style="@StyleHelper.GetUserColor(offer.OffererUUID, UserService.UserUUID)">Offerer: @offer.OffererUUID</h6>
+                                        </a>
+                                        <h5 class="card-text">Price: @offer.OfferPrice$</h5>
+                                    </div>
+                                    <div class="col-md-3">
+                                        @if (Deal != null && Deal.UserUUID == UserService.UserUUID)
+                                        {
+                                            <button class="btn btn-dark" @onclick="() => AcceptOffer(offer.IdDeal, offer.IdDealOffer)">Accept</button>
+                                        }
+                                        else
+                                        {
+                                            <button class="btn btn-secondary">No_>:3</button>
+                                        }
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        @if (Deal != null && Deal.UserUUID == UserService.UserUUID)
-                        {
-                            <div class="col-md-3">
-                                <button class="btn btn-dark float-right" @onclick="() => AcceptOffer(offer.IdDeal, offer.IdDealOffer)">Accept</button>
-                            </div>
-                        }
-                    </div>
+                    }
                 }
-            }
+            </div>
         </div>
     }
 }
@@ -70,6 +95,7 @@ else
         if (response.IsSuccessStatusCode)
         {
             DealOffers = await response.Content.ReadFromJsonAsync<List<DealOffersReadDto>>();
+            DealOffers = DealOffers.OrderBy(deal => deal.OfferPrice).ToList();
         }
     }
     private async Task LoadDealInfo()
@@ -96,7 +122,6 @@ else
             await MessageService.ShowMessage("Incorrect Price! Correct format: 12,34 or 12");
         }   
     }
-
     private async Task AcceptOffer(int IdDeal, int IdDealOffer)
     {
         HttpResponseMessage response = await UserService.HttpClient.PostAsync($"{UserService.BaseUrl}/deals/{IdDeal}/offers/{IdDealOffer}/accept", null);

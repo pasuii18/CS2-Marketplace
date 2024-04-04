@@ -24,15 +24,6 @@ namespace CSMarketApp.Infrastructure.Business.Services.ItemsServices.Type
             var records = await _repo.GetAll();
             return _mapper.Map<IEnumerable<TypeCharacteristicsReadDto>>(records);
         }
-        public async Task<TypeCharacteristicsReadDto> GetById(int id)
-        {
-            var record = await _repo.GetById(id);
-            if (record == null)
-            {
-                throw new KeyNotFoundException("TypeCharacteristic with your ID is not found!");
-            }
-            return _mapper.Map<TypeCharacteristicsReadDto>(record);
-        }
         public async Task<RecordIdReadDto> Create(TypeCharacteristicsCreateDto createDto)
         {
             var record = await _repo.GetByName(createDto.TypeCharacteristicName);

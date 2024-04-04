@@ -4,7 +4,6 @@ namespace CSMarketApp.Domain.Interfaces.ReposInterfaces.DealsInterfaces
 {
     public interface IDealOffersRepo
     {
-        Task<IEnumerable<DealOffers>> GetAll();
         Task<IEnumerable<DealOffers>> GetAllByDealId(int id);
         Task<IEnumerable<DealOffers>> GetAllByUserId(int id);
         Task<DealOffers> GetOfferById(int id);

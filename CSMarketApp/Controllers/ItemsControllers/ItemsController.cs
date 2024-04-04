@@ -30,12 +30,6 @@ namespace CSMarketApp.Controllers.ItemsControllers
             return Ok(await _itemsService.GetItemById(id));
         }
 
-        // [HttpGet("{id}/deals")]
-        // public async Task<ActionResult<IEnumerable<ItemDealsReadDto>>> GetItemDeals(int id)
-        // {
-        //     return Ok(await _itemsService.GetItemDeals(id));
-        // }
-
         [HttpPost]
         [Authorize(Roles = "Developer, Administrator")]
         public async Task<ActionResult<string>> CreateItem([FromForm] ItemCreateSpecialDtoShort formDto)

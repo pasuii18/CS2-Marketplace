@@ -4,16 +4,16 @@
         {
             <div class="col-md-3">
                 <div class="card mb-2 shadow-sm">
-                    <img class="card-img-top" style="width: 290px; height: 220px" @onclick="(() => RedirectToItem(deal.IdItem))" src=@($"{UserService.BaseUrl}/ItemsPictures/{deal.IdItemPicture}")>
+                    <img class="card-img-top ihar-cursor" style="width: 290px; height: 220px; margin: 10px" @onclick="(() => RedirectToItem(deal.IdItem))" src=@($"{UserService.BaseUrl}/ItemsPictures/{deal.IdItemPicture}")>
                     <div class="card-body">
                         <h6 class="card-title">@deal.ItemTypeName / @deal.ItemClassName</h6>
                         <h5 class="card-title" style="@StyleHelper.GetRarityColor(deal.Rarity)">@deal.ItemSubClassName | @deal.SkinName</h5>
                         <h4 class="card-text">Price: @deal.Price$</h4>
-                        <div class="row">
+                        <div class="row m-1">
                             <button class="btn btn-dark mb-1" @onclick="() => RedirectToDealOffers(deal.IdDeal)">Offers</button>
                             @if (deal.UserUUID == UserService.UserUUID)
                             {
-                                <button class="btn btn-dark" style="background-color: red; color: white;" @onclick="() => DeleteDealHandler(deal.IdDeal)">Delete Deal</button>
+                                <button class="btn btn-danger" @onclick="() => DeleteDealHandler(deal.IdDeal)">Delete Deal</button>
                             }
                         </div>
                     </div>

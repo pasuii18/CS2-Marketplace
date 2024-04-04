@@ -207,26 +207,18 @@
     List<TypeCharacteristicsReadDto> typeCharacteristicsReadDto = new List<TypeCharacteristicsReadDto>();
     List<ClassCharacteristicsReadDto> classCharacteristicsReadDto = new List<ClassCharacteristicsReadDto>();
     
-    private async Task LoadData()
+    protected override async Task OnInitializedAsync()
     {
-        await LoadFromApi(LoadSkins, "itemsskins");
-        await LoadFromApi(LoadItemTypes, "itemstype");
-        await LoadFromApi(LoadItemClasses, "itemsclass");
-        await LoadFromApi(LoadItemSubClasses, "itemssubclass");
-        await LoadFromApi(LoadTypeCharacteristics, "typecharacteristics");
-        await LoadFromApi(LoadClassCharacteristics, "classcharacteristics");
+        await LoadItems();
+        await LoadSkins();
+        await LoadItemTypes();
+        await LoadItemClasses();
+        await LoadItemSubClasses();
+        await LoadTypeCharacteristics();
+        await LoadClassCharacteristics();
     }
 
-    private async Task LoadFromApi(Func<Task> loadMethod, string endpoint)
-    {
-        HttpResponseMessage response = await UserService.HttpClient.GetAsync($"{UserService.BaseUrl}/{endpoint}");
-        await MessageService.ShowMessage(response);
-        if (response.IsSuccessStatusCode)
-        {
-            await loadMethod();
-        }
-    }
-
+    private async Task LoadItems() => itemsReadDto = await LoadListFromResponse<ItemsReadDto>("items");
     private async Task LoadSkins() => skinsReadDto = await LoadListFromResponse<SkinsReadDto>("itemsskins");
     private async Task LoadItemTypes() => itemTypesReadDto = await LoadListFromResponse<ItemsTypeReadDto>("itemstype");
     private async Task LoadItemClasses() => itemClassesReadDto = await LoadListFromResponse<ItemsClassReadDto>("itemsclass");

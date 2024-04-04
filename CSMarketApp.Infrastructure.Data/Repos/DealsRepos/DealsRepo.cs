@@ -12,24 +12,7 @@ namespace CSMarketApp.Infrastructure.Data.Repos.DealsRepos
         {
             _context = context;
         }
-
-        public async Task<IEnumerable<Deals>> GetAllRows()
-        {
-            return await _context.Deals
-                .Include(d => d.User)
-                .Include(item => item.Item.Skin)
-                .Include(item => item.Item.ItemPicture)
-                .Include(d => d.Item)
-                    .ThenInclude(item => item.ItemsType)
-                        .ThenInclude(itemType => itemType.ItemsTypeCharacteristics)
-                            .ThenInclude(itemTypeCharacteristics => itemTypeCharacteristics.TypeCharacteristic)
-                .Include(d => d.Item.ItemsType)
-                    .ThenInclude(itemType => itemType.ItemsClass)
-                        .ThenInclude(itemClass => itemClass.ItemsClassCharacteristics)
-                            .ThenInclude(itemsClassCharacteristics => itemsClassCharacteristics.ClassCharacteristic)
-                .Include(d => d.Item.ItemsType.ItemsClass.ItemsSubClass)
-                .ToListAsync();
-        }
+        
         public async Task<Deals?> GetRowById(int id)
         {
             return await _context.Deals
