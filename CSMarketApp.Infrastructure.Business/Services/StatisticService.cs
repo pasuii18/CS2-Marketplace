@@ -39,7 +39,7 @@ namespace CSMarketApp.Infrastructure.Business.Services
                 .Select(g => new
                 {
                     User = g.First(),
-                    TotalPurchaseSum = g.Sum(u => u.BuyingHistory.Sum(dh => dh.Price))
+                    TotalPurchaseSum = g.Sum(u => u.BuyingHistory.Sum(dh => dh.Price)) // SellingHistory
                 })
                 .OrderByDescending(u => u.TotalPurchaseSum)
                 .Take(5)

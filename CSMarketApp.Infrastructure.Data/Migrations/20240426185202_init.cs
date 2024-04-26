@@ -355,10 +355,14 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                 columns: new[] { "IdItemPicture", "ItemPicturePath" },
                 values: new object[,]
                 {
-                    { 1, "images\\ItemsPictures\\case.png" },
+                    { 1, "images\\ItemsPictures\\SnakeBite.png" },
                     { 2, "images\\ItemsPictures\\DesertEagle.png" },
-                    { 3, "images\\ItemsPictures\\M4A1-S.png" },
-                    { 4, "images\\ItemsPictures\\MusicKit.png" }
+                    { 3, "images\\ItemsPictures\\BorealForest.png" },
+                    { 4, "images\\ItemsPictures\\ISOXO_inhuman.png" },
+                    { 5, "images\\ItemsPictures\\R8Revolver_BoneForged.png" },
+                    { 6, "images\\ItemsPictures\\DesertEagle_FennecFox.png" },
+                    { 7, "images\\ItemsPictures\\Sticker_Tyloo.png" },
+                    { 8, "images\\ItemsPictures\\AUG_Akihabara.png" }
                 });
 
             migrationBuilder.InsertData(
@@ -428,7 +432,8 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                     { 60, "Broken Fang" },
                     { 61, "Driver" },
                     { 62, "Music Kit" },
-                    { 63, "Case" }
+                    { 63, "Case" },
+                    { 64, "Sticker" }
                 });
 
             migrationBuilder.InsertData(
@@ -446,10 +451,14 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                 columns: new[] { "IdSkin", "SkinName" },
                 values: new object[,]
                 {
-                    { 1, "SnakeBite" },
-                    { 2, "Strealkovaya" },
+                    { 1, "Snake Bite" },
+                    { 2, "Trigger Discipline" },
                     { 3, "Forest Boreal" },
-                    { 4, "ISOxo - inhuman" }
+                    { 4, "ISOxo - inhuman" },
+                    { 5, "Bone Forged" },
+                    { 6, "Fennec Fox" },
+                    { 7, "Tyloo" },
+                    { 8, "Akihabara" }
                 });
 
             migrationBuilder.InsertData(
@@ -459,7 +468,7 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                 {
                     { 1, "Release Year" },
                     { 2, "Release Season" },
-                    { 3, "Stat-track" }
+                    { 3, "Stat-Track" }
                 });
 
             migrationBuilder.InsertData(
@@ -481,7 +490,10 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                     { 1, 63, "Case" },
                     { 2, 9, "Pistol" },
                     { 3, 27, "Rifle" },
-                    { 4, 62, "Music Kit" }
+                    { 4, 62, "Music Kit" },
+                    { 5, 10, "Pistol" },
+                    { 6, 64, "Sticker" },
+                    { 7, 30, "Rifle" }
                 });
 
             migrationBuilder.InsertData(
@@ -489,10 +501,10 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                 columns: new[] { "IdUser", "Description", "IdRole", "IdUserProfilePicture", "Login", "Password", "UUID", "Username" },
                 values: new object[,]
                 {
-                    { 1, "Hi! My name is Arseny Trubilo.", 1, 1, "arseny", "123", "1", "Arseny" },
-                    { 2, "Certified Boykisser", 1, 2, "roma", "123", "2", "Roma" },
-                    { 3, "Мир - картофелина", 3, 3, "kirill", "123", "3", "Kirim" },
-                    { 4, "<h2>HELLO??????</h2>", 1, 4, "serega", "123", "4", "Серега Крутой 78рус" }
+                    { 1, "Hi! My name is Arseny Trubilo.", 1, 1, "arseny", "123", "510b94169e", "Arseny" },
+                    { 2, "Certified Boykisser", 1, 2, "roma", "123", "1f66a5c37b", "Romjanee" },
+                    { 3, "Мир - картофелина", 3, 3, "kirill", "123", "074725b8f0", "Kirim" },
+                    { 4, "<h2>HELLO??????</h2>", 1, 4, "serega", "123", "c62af965fd", "Серега Рыжий 78рус" }
                 });
 
             migrationBuilder.InsertData(
@@ -504,7 +516,12 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                     { 2, 2, "No" },
                     { 3, 2, "7 bullets" },
                     { 3, 3, "30 bullets" },
-                    { 4, 3, "3bps" }
+                    { 4, 3, "3bps" },
+                    { 1, 5, "1500m" },
+                    { 3, 5, "8 bullets" },
+                    { 6, 6, "Foil" },
+                    { 2, 7, "Yes" },
+                    { 4, 7, "150bpm" }
                 });
 
             migrationBuilder.InsertData(
@@ -515,7 +532,10 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                     { 1, 1, "Lootboxes" },
                     { 2, 2, "Weapon" },
                     { 3, 3, "Weapon" },
-                    { 4, 4, "Accessories" }
+                    { 4, 4, "Accessories" },
+                    { 5, 5, "Weapon" },
+                    { 6, 6, "Accessories" },
+                    { 7, 7, "Weapon" }
                 });
 
             migrationBuilder.InsertData(
@@ -526,7 +546,11 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                     { 1, 1, 1, 1, 2 },
                     { 2, 2, 2, 2, 3 },
                     { 3, 3, 3, 3, 1 },
-                    { 4, 4, 4, 4, 2 }
+                    { 4, 4, 4, 4, 2 },
+                    { 5, 5, 5, 5, 2 },
+                    { 6, 6, 2, 6, 5 },
+                    { 7, 7, 6, 7, 4 },
+                    { 8, 8, 7, 8, 6 }
                 });
 
             migrationBuilder.InsertData(
@@ -537,7 +561,12 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                     { 1, 1, "2023" },
                     { 1, 2, "Spring" },
                     { 3, 3, "Yes" },
-                    { 4, 1, "2024" }
+                    { 4, 1, "2024" },
+                    { 5, 1, "2022" },
+                    { 5, 3, "Yes" },
+                    { 6, 1, "2019" },
+                    { 6, 2, "Summer" },
+                    { 7, 3, "No" }
                 });
 
             migrationBuilder.InsertData(
@@ -552,7 +581,11 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                     { 5, 1, 2, 0.42m },
                     { 6, 2, 3, 1.97m },
                     { 7, 3, 4, 0.23m },
-                    { 8, 4, 1, 4.80m }
+                    { 8, 4, 1, 4.80m },
+                    { 9, 5, 2, 2.23m },
+                    { 10, 6, 3, 45.78m },
+                    { 11, 6, 4, 42.56m },
+                    { 12, 7, 3, 19.01m }
                 });
 
             migrationBuilder.InsertData(
@@ -560,14 +593,20 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                 columns: new[] { "IdDealsHistory", "Date", "IdBuyer", "IdItem", "IdSeller", "Price" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 4, 3, 9, 17, 17, 584, DateTimeKind.Local).AddTicks(3702), 1, 1, 3, 0.37m },
-                    { 2, new DateTime(2024, 4, 2, 17, 17, 17, 584, DateTimeKind.Local).AddTicks(3720), 2, 1, 1, 0.34m },
-                    { 3, new DateTime(2024, 4, 3, 13, 17, 17, 584, DateTimeKind.Local).AddTicks(3722), 4, 2, 2, 2.01m },
-                    { 4, new DateTime(2024, 4, 2, 12, 17, 17, 584, DateTimeKind.Local).AddTicks(3725), 3, 2, 4, 2.13m },
-                    { 5, new DateTime(2024, 4, 1, 21, 17, 17, 584, DateTimeKind.Local).AddTicks(3726), 1, 3, 2, 0.23m },
-                    { 6, new DateTime(2024, 4, 4, 3, 17, 17, 584, DateTimeKind.Local).AddTicks(3728), 2, 3, 4, 0.20m },
-                    { 7, new DateTime(2024, 4, 3, 9, 17, 17, 584, DateTimeKind.Local).AddTicks(3730), 3, 4, 1, 4.98m },
-                    { 8, new DateTime(2024, 4, 1, 1, 17, 17, 584, DateTimeKind.Local).AddTicks(3731), 4, 4, 3, 5.02m }
+                    { 1, new DateTime(2024, 4, 25, 21, 52, 2, 523, DateTimeKind.Local).AddTicks(4232), 1, 1, 3, 0.37m },
+                    { 2, new DateTime(2024, 4, 25, 5, 52, 2, 523, DateTimeKind.Local).AddTicks(4259), 2, 1, 1, 0.34m },
+                    { 3, new DateTime(2024, 4, 26, 1, 52, 2, 523, DateTimeKind.Local).AddTicks(4260), 4, 2, 2, 2.01m },
+                    { 4, new DateTime(2024, 4, 25, 0, 52, 2, 523, DateTimeKind.Local).AddTicks(4262), 3, 2, 4, 2.13m },
+                    { 5, new DateTime(2024, 4, 24, 9, 52, 2, 523, DateTimeKind.Local).AddTicks(4264), 1, 3, 2, 0.23m },
+                    { 6, new DateTime(2024, 4, 26, 15, 52, 2, 523, DateTimeKind.Local).AddTicks(4266), 2, 3, 4, 0.20m },
+                    { 7, new DateTime(2024, 4, 25, 21, 52, 2, 523, DateTimeKind.Local).AddTicks(4267), 3, 4, 1, 4.98m },
+                    { 8, new DateTime(2024, 4, 23, 13, 52, 2, 523, DateTimeKind.Local).AddTicks(4269), 4, 4, 3, 5.02m },
+                    { 9, new DateTime(2024, 4, 25, 22, 52, 2, 523, DateTimeKind.Local).AddTicks(4271), 1, 5, 3, 2.12m },
+                    { 10, new DateTime(2024, 4, 25, 2, 52, 2, 523, DateTimeKind.Local).AddTicks(4272), 2, 5, 1, 2.42m },
+                    { 11, new DateTime(2024, 4, 25, 0, 52, 2, 523, DateTimeKind.Local).AddTicks(4274), 3, 6, 4, 48.12m },
+                    { 12, new DateTime(2024, 4, 24, 13, 52, 2, 523, DateTimeKind.Local).AddTicks(4276), 4, 6, 2, 46.99m },
+                    { 13, new DateTime(2024, 4, 26, 9, 52, 2, 523, DateTimeKind.Local).AddTicks(4277), 3, 7, 1, 16.16m },
+                    { 14, new DateTime(2024, 4, 24, 5, 52, 2, 523, DateTimeKind.Local).AddTicks(4279), 2, 7, 3, 18.40m }
                 });
 
             migrationBuilder.InsertData(
@@ -582,7 +621,10 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                     { 5, 1, 3, 0.35m },
                     { 6, 2, 1, 1.81m },
                     { 7, 3, 4, 0.19m },
-                    { 8, 4, 2, 4.24m }
+                    { 8, 4, 2, 4.24m },
+                    { 9, 9, 1, 2.23m },
+                    { 10, 10, 2, 44.15m },
+                    { 11, 12, 4, 18.11m }
                 });
 
             migrationBuilder.CreateIndex(

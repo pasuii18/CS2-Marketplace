@@ -104,6 +104,27 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                             IdDeal = 4,
                             IdOfferer = 2,
                             OfferPrice = 4.24m
+                        },
+                        new
+                        {
+                            IdDealOffer = 9,
+                            IdDeal = 9,
+                            IdOfferer = 1,
+                            OfferPrice = 2.23m
+                        },
+                        new
+                        {
+                            IdDealOffer = 10,
+                            IdDeal = 10,
+                            IdOfferer = 2,
+                            OfferPrice = 44.15m
+                        },
+                        new
+                        {
+                            IdDealOffer = 11,
+                            IdDeal = 12,
+                            IdOfferer = 4,
+                            OfferPrice = 18.11m
                         });
                 });
 
@@ -189,6 +210,34 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                             IdItem = 4,
                             IdUser = 1,
                             Price = 4.80m
+                        },
+                        new
+                        {
+                            IdDeal = 9,
+                            IdItem = 5,
+                            IdUser = 2,
+                            Price = 2.23m
+                        },
+                        new
+                        {
+                            IdDeal = 10,
+                            IdItem = 6,
+                            IdUser = 3,
+                            Price = 45.78m
+                        },
+                        new
+                        {
+                            IdDeal = 11,
+                            IdItem = 6,
+                            IdUser = 4,
+                            Price = 42.56m
+                        },
+                        new
+                        {
+                            IdDeal = 12,
+                            IdItem = 7,
+                            IdUser = 3,
+                            Price = 19.01m
                         });
                 });
 
@@ -230,7 +279,7 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                         new
                         {
                             IdDealsHistory = 1,
-                            Date = new DateTime(2024, 4, 3, 9, 17, 17, 584, DateTimeKind.Local).AddTicks(3702),
+                            Date = new DateTime(2024, 4, 25, 21, 52, 2, 523, DateTimeKind.Local).AddTicks(4232),
                             IdBuyer = 1,
                             IdItem = 1,
                             IdSeller = 3,
@@ -239,7 +288,7 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                         new
                         {
                             IdDealsHistory = 2,
-                            Date = new DateTime(2024, 4, 2, 17, 17, 17, 584, DateTimeKind.Local).AddTicks(3720),
+                            Date = new DateTime(2024, 4, 25, 5, 52, 2, 523, DateTimeKind.Local).AddTicks(4259),
                             IdBuyer = 2,
                             IdItem = 1,
                             IdSeller = 1,
@@ -248,7 +297,7 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                         new
                         {
                             IdDealsHistory = 3,
-                            Date = new DateTime(2024, 4, 3, 13, 17, 17, 584, DateTimeKind.Local).AddTicks(3722),
+                            Date = new DateTime(2024, 4, 26, 1, 52, 2, 523, DateTimeKind.Local).AddTicks(4260),
                             IdBuyer = 4,
                             IdItem = 2,
                             IdSeller = 2,
@@ -257,7 +306,7 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                         new
                         {
                             IdDealsHistory = 4,
-                            Date = new DateTime(2024, 4, 2, 12, 17, 17, 584, DateTimeKind.Local).AddTicks(3725),
+                            Date = new DateTime(2024, 4, 25, 0, 52, 2, 523, DateTimeKind.Local).AddTicks(4262),
                             IdBuyer = 3,
                             IdItem = 2,
                             IdSeller = 4,
@@ -266,7 +315,7 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                         new
                         {
                             IdDealsHistory = 5,
-                            Date = new DateTime(2024, 4, 1, 21, 17, 17, 584, DateTimeKind.Local).AddTicks(3726),
+                            Date = new DateTime(2024, 4, 24, 9, 52, 2, 523, DateTimeKind.Local).AddTicks(4264),
                             IdBuyer = 1,
                             IdItem = 3,
                             IdSeller = 2,
@@ -275,7 +324,7 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                         new
                         {
                             IdDealsHistory = 6,
-                            Date = new DateTime(2024, 4, 4, 3, 17, 17, 584, DateTimeKind.Local).AddTicks(3728),
+                            Date = new DateTime(2024, 4, 26, 15, 52, 2, 523, DateTimeKind.Local).AddTicks(4266),
                             IdBuyer = 2,
                             IdItem = 3,
                             IdSeller = 4,
@@ -284,7 +333,7 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                         new
                         {
                             IdDealsHistory = 7,
-                            Date = new DateTime(2024, 4, 3, 9, 17, 17, 584, DateTimeKind.Local).AddTicks(3730),
+                            Date = new DateTime(2024, 4, 25, 21, 52, 2, 523, DateTimeKind.Local).AddTicks(4267),
                             IdBuyer = 3,
                             IdItem = 4,
                             IdSeller = 1,
@@ -293,11 +342,65 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                         new
                         {
                             IdDealsHistory = 8,
-                            Date = new DateTime(2024, 4, 1, 1, 17, 17, 584, DateTimeKind.Local).AddTicks(3731),
+                            Date = new DateTime(2024, 4, 23, 13, 52, 2, 523, DateTimeKind.Local).AddTicks(4269),
                             IdBuyer = 4,
                             IdItem = 4,
                             IdSeller = 3,
                             Price = 5.02m
+                        },
+                        new
+                        {
+                            IdDealsHistory = 9,
+                            Date = new DateTime(2024, 4, 25, 22, 52, 2, 523, DateTimeKind.Local).AddTicks(4271),
+                            IdBuyer = 1,
+                            IdItem = 5,
+                            IdSeller = 3,
+                            Price = 2.12m
+                        },
+                        new
+                        {
+                            IdDealsHistory = 10,
+                            Date = new DateTime(2024, 4, 25, 2, 52, 2, 523, DateTimeKind.Local).AddTicks(4272),
+                            IdBuyer = 2,
+                            IdItem = 5,
+                            IdSeller = 1,
+                            Price = 2.42m
+                        },
+                        new
+                        {
+                            IdDealsHistory = 11,
+                            Date = new DateTime(2024, 4, 25, 0, 52, 2, 523, DateTimeKind.Local).AddTicks(4274),
+                            IdBuyer = 3,
+                            IdItem = 6,
+                            IdSeller = 4,
+                            Price = 48.12m
+                        },
+                        new
+                        {
+                            IdDealsHistory = 12,
+                            Date = new DateTime(2024, 4, 24, 13, 52, 2, 523, DateTimeKind.Local).AddTicks(4276),
+                            IdBuyer = 4,
+                            IdItem = 6,
+                            IdSeller = 2,
+                            Price = 46.99m
+                        },
+                        new
+                        {
+                            IdDealsHistory = 13,
+                            Date = new DateTime(2024, 4, 26, 9, 52, 2, 523, DateTimeKind.Local).AddTicks(4277),
+                            IdBuyer = 3,
+                            IdItem = 7,
+                            IdSeller = 1,
+                            Price = 16.16m
+                        },
+                        new
+                        {
+                            IdDealsHistory = 14,
+                            Date = new DateTime(2024, 4, 24, 5, 52, 2, 523, DateTimeKind.Local).AddTicks(4279),
+                            IdBuyer = 2,
+                            IdItem = 7,
+                            IdSeller = 3,
+                            Price = 18.40m
                         });
                 });
 
@@ -410,6 +513,24 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                             IdItemClass = 4,
                             IdItemSubClass = 62,
                             ItemClassName = "Music Kit"
+                        },
+                        new
+                        {
+                            IdItemClass = 5,
+                            IdItemSubClass = 10,
+                            ItemClassName = "Pistol"
+                        },
+                        new
+                        {
+                            IdItemClass = 6,
+                            IdItemSubClass = 64,
+                            ItemClassName = "Sticker"
+                        },
+                        new
+                        {
+                            IdItemClass = 7,
+                            IdItemSubClass = 30,
+                            ItemClassName = "Rifle"
                         });
                 });
 
@@ -462,6 +583,36 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                             IdItemClass = 3,
                             IdClassCharacteristic = 3,
                             ClassCharacteristicValue = "30 bullets"
+                        },
+                        new
+                        {
+                            IdItemClass = 5,
+                            IdClassCharacteristic = 3,
+                            ClassCharacteristicValue = "8 bullets"
+                        },
+                        new
+                        {
+                            IdItemClass = 5,
+                            IdClassCharacteristic = 1,
+                            ClassCharacteristicValue = "1500m"
+                        },
+                        new
+                        {
+                            IdItemClass = 6,
+                            IdClassCharacteristic = 6,
+                            ClassCharacteristicValue = "Foil"
+                        },
+                        new
+                        {
+                            IdItemClass = 7,
+                            IdClassCharacteristic = 2,
+                            ClassCharacteristicValue = "Yes"
+                        },
+                        new
+                        {
+                            IdItemClass = 7,
+                            IdClassCharacteristic = 4,
+                            ClassCharacteristicValue = "150bpm"
                         });
                 });
 
@@ -531,6 +682,38 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                             IdItemType = 4,
                             IdSkin = 4,
                             Rarity = 2
+                        },
+                        new
+                        {
+                            IdItem = 5,
+                            IdItemPicture = 5,
+                            IdItemType = 5,
+                            IdSkin = 5,
+                            Rarity = 2
+                        },
+                        new
+                        {
+                            IdItem = 6,
+                            IdItemPicture = 6,
+                            IdItemType = 2,
+                            IdSkin = 6,
+                            Rarity = 5
+                        },
+                        new
+                        {
+                            IdItem = 7,
+                            IdItemPicture = 7,
+                            IdItemType = 6,
+                            IdSkin = 7,
+                            Rarity = 4
+                        },
+                        new
+                        {
+                            IdItem = 8,
+                            IdItemPicture = 8,
+                            IdItemType = 7,
+                            IdSkin = 8,
+                            Rarity = 6
                         });
                 });
 
@@ -557,7 +740,7 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                         new
                         {
                             IdItemPicture = 1,
-                            ItemPicturePath = "images\\ItemsPictures\\case.png"
+                            ItemPicturePath = "images\\ItemsPictures\\SnakeBite.png"
                         },
                         new
                         {
@@ -567,12 +750,32 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                         new
                         {
                             IdItemPicture = 3,
-                            ItemPicturePath = "images\\ItemsPictures\\M4A1-S.png"
+                            ItemPicturePath = "images\\ItemsPictures\\BorealForest.png"
                         },
                         new
                         {
                             IdItemPicture = 4,
-                            ItemPicturePath = "images\\ItemsPictures\\MusicKit.png"
+                            ItemPicturePath = "images\\ItemsPictures\\ISOXO_inhuman.png"
+                        },
+                        new
+                        {
+                            IdItemPicture = 5,
+                            ItemPicturePath = "images\\ItemsPictures\\R8Revolver_BoneForged.png"
+                        },
+                        new
+                        {
+                            IdItemPicture = 6,
+                            ItemPicturePath = "images\\ItemsPictures\\DesertEagle_FennecFox.png"
+                        },
+                        new
+                        {
+                            IdItemPicture = 7,
+                            ItemPicturePath = "images\\ItemsPictures\\Sticker_Tyloo.png"
+                        },
+                        new
+                        {
+                            IdItemPicture = 8,
+                            ItemPicturePath = "images\\ItemsPictures\\AUG_Akihabara.png"
                         });
                 });
 
@@ -600,12 +803,12 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                         new
                         {
                             IdSkin = 1,
-                            SkinName = "SnakeBite"
+                            SkinName = "Snake Bite"
                         },
                         new
                         {
                             IdSkin = 2,
-                            SkinName = "Strealkovaya"
+                            SkinName = "Trigger Discipline"
                         },
                         new
                         {
@@ -616,6 +819,26 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                         {
                             IdSkin = 4,
                             SkinName = "ISOxo - inhuman"
+                        },
+                        new
+                        {
+                            IdSkin = 5,
+                            SkinName = "Bone Forged"
+                        },
+                        new
+                        {
+                            IdSkin = 6,
+                            SkinName = "Fennec Fox"
+                        },
+                        new
+                        {
+                            IdSkin = 7,
+                            SkinName = "Tyloo"
+                        },
+                        new
+                        {
+                            IdSkin = 8,
+                            SkinName = "Akihabara"
                         });
                 });
 
@@ -953,6 +1176,11 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                         {
                             IdItemSubClass = 63,
                             ItemSubClassName = "Case"
+                        },
+                        new
+                        {
+                            IdItemSubClass = 64,
+                            ItemSubClassName = "Sticker"
                         });
                 });
 
@@ -1003,6 +1231,24 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                             IdItemType = 4,
                             IdItemClass = 4,
                             ItemTypeName = "Accessories"
+                        },
+                        new
+                        {
+                            IdItemType = 5,
+                            IdItemClass = 5,
+                            ItemTypeName = "Weapon"
+                        },
+                        new
+                        {
+                            IdItemType = 6,
+                            IdItemClass = 6,
+                            ItemTypeName = "Accessories"
+                        },
+                        new
+                        {
+                            IdItemType = 7,
+                            IdItemClass = 7,
+                            ItemTypeName = "Weapon"
                         });
                 });
 
@@ -1049,6 +1295,36 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                             IdItemType = 4,
                             IdTypeCharacteristic = 1,
                             TypeCharacteristicValue = "2024"
+                        },
+                        new
+                        {
+                            IdItemType = 5,
+                            IdTypeCharacteristic = 1,
+                            TypeCharacteristicValue = "2022"
+                        },
+                        new
+                        {
+                            IdItemType = 5,
+                            IdTypeCharacteristic = 3,
+                            TypeCharacteristicValue = "Yes"
+                        },
+                        new
+                        {
+                            IdItemType = 6,
+                            IdTypeCharacteristic = 1,
+                            TypeCharacteristicValue = "2019"
+                        },
+                        new
+                        {
+                            IdItemType = 6,
+                            IdTypeCharacteristic = 2,
+                            TypeCharacteristicValue = "Summer"
+                        },
+                        new
+                        {
+                            IdItemType = 7,
+                            IdTypeCharacteristic = 3,
+                            TypeCharacteristicValue = "No"
                         });
                 });
 
@@ -1085,7 +1361,7 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                         new
                         {
                             IdTypeCharacteristic = 3,
-                            TypeCharacteristicName = "Stat-track"
+                            TypeCharacteristicName = "Stat-Track"
                         });
                 });
 
@@ -1187,7 +1463,7 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                             IdUserProfilePicture = 1,
                             Login = "arseny",
                             Password = "123",
-                            UUID = "1",
+                            UUID = "510b94169e",
                             Username = "Arseny"
                         },
                         new
@@ -1198,8 +1474,8 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                             IdUserProfilePicture = 2,
                             Login = "roma",
                             Password = "123",
-                            UUID = "2",
-                            Username = "Roma"
+                            UUID = "1f66a5c37b",
+                            Username = "Romjanee"
                         },
                         new
                         {
@@ -1209,7 +1485,7 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                             IdUserProfilePicture = 3,
                             Login = "kirill",
                             Password = "123",
-                            UUID = "3",
+                            UUID = "074725b8f0",
                             Username = "Kirim"
                         },
                         new
@@ -1220,8 +1496,8 @@ namespace CSMarketApp.Infrastructure.Data.Migrations
                             IdUserProfilePicture = 4,
                             Login = "serega",
                             Password = "123",
-                            UUID = "4",
-                            Username = "Серега Крутой 78рус"
+                            UUID = "c62af965fd",
+                            Username = "Серега Рыжий 78рус"
                         });
                 });
 

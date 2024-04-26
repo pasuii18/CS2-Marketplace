@@ -4,9 +4,9 @@ namespace BlazorWebClient.Dtos.UsersDtos
 {
     public class UserAuthDto
     {
-        [Required(ErrorMessage = "Username is required.")]
+        [Required(ErrorMessage = "Login is required.")]
         public string? Login { get; set; }
-        [Required(ErrorMessage = "Username is required.")]
+        [Required(ErrorMessage = "Password is required.")]
         public string? Password { get; set; }
     }
 }
