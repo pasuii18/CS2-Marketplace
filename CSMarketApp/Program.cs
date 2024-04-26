@@ -36,6 +36,7 @@ using System.Text;
 using CSMarketApp.Infrastructure.Business.Algorithms;
 using CSMarketApp.Services.Interfaces.Dtos.UsersDtos;
 using FluentValidation;
+using CSMarketApp.Infrastructure.Business.Services;
 
 namespace CSMarketApp
 {
@@ -81,6 +82,7 @@ namespace CSMarketApp
             builder.Services.AddScoped<IItemsClassCharacteristicsService, ItemsClassCharacteristicsService>();
             builder.Services.AddScoped<IItemsTypeCharacteristicsService, ItemsTypeCharacteristicsService>();
             builder.Services.AddScoped<IItemsSkinsService, ItemsSkinsService>();
+            builder.Services.AddScoped<IStatisticService, StatisticService>();
 
             builder.Services.AddScoped<ITemplateService<ItemsSubClassReadDto, ItemsSubClassCreateDto, ItemsSubClassUpdateDto>, ItemsSubClassService>();
             builder.Services.AddScoped<ITemplateService<ItemsClassReadDto, ItemsClassCreateDto, ItemsClassUpdateDto>, ItemsClassService>();

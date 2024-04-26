@@ -36,6 +36,10 @@ namespace CSMarketApp.Infrastructure.Data.Repos.UsersRepos
             return await _context.Users
                 .Include(user => user.UserProfilePicture)
                 .Include(user => user.Role)
+                .Include(user => user.Deals)
+                .Include(user => user.DealOffers)
+                .Include(user => user.BuyingHistory)
+                .Include(user => user.SellingHistory)
                 .ToListAsync();
         }
         public async Task<Users?> GetUserByUUID(string uuid)

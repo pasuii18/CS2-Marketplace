@@ -1,0 +1,200 @@
+﻿@page "/tops"
+@rendermode InteractiveServer
+
+@if (usersBuyings == null || itemSelling == null || userStat == null)
+{
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-5 border rounded p-2 mt-3 text-center">
+                <h2 class="my-auto">Sorry, there is no info yet!</h2>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-5 border rounded p-2 mt-3 text-center">
+                <h1 class="my-auto">Best Seller</h1>
+            </div>
+        </div>
+        <div class="row align-items-start border rounded p-3 mt-3 mb-5">
+            <div class="col-md-4 m-5">
+                <img class="rounded ihar-cursor" style="width: 400px; height: 400px;" @onclick="(() => RedirectToUser(usersBuyings.First().User.UUID))" src=@($"{UserService.BaseUrl}/UsersPictures/{usersBuyings.First().User.IdPicture}")>
+            </div>
+            <div class="col-md-7">
+                <h1 class="card-title">@usersBuyings.First().User.Username</h1>
+                <hr>
+                <div class="row">
+                    <div class="col text-center">
+                        <h2>Total Transaction Sum</h2>
+                        <strong><em style="font-size: 130px;">@usersBuyings.First().Sum$</em></strong>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row p-3">
+                <div style="max-height: 400px; overflow-y: auto;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>UUID</th>
+                                <th>Username</th>
+                                <th>Summary</th>
+                            </tr>
+                        </thead>
+                        <tbody style="font-size: 24px;">
+                            @foreach (var user in usersBuyings.Skip(1))
+                            {
+                                <tr>
+                                    <td class="ihar-link" @onclick="(() => RedirectToUser(user.User.UUID))">@user.User.UUID</td>
+                                    <td>@user.User.Username</td>
+                                    <td>@user.Sum$</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-5 border rounded p-2 mt-3 text-center">
+                <h1 class="my-auto">Top Selling Item</h1>
+            </div>
+        </div>
+        <div class="row align-items-start border rounded p-3 mt-3 mb-5">
+            <div class="col-md-5">
+                <img class="card-img-top ihar-img ihar-cursor" @onclick="(() => RedirectToItem(itemSelling.Item.IdItem))" src=@($"{UserService.BaseUrl}/ItemsPictures/{itemSelling.Item.IdItemPicture}")>
+            </div>
+            <div class="col-md-7">
+                <h2 class="card-title">@itemSelling.Item.ItemTypeName / @itemSelling.Item.ItemClassName</h2>
+                <h1 class="card-title" style="@StyleHelper.GetRarityColor(itemSelling.Item.Rarity)">@itemSelling.Item.ItemSubClassName | @itemSelling.Item.SkinName</h1>
+                <hr>
+                <div class="row">
+                    <div class="col text-center">
+                        <h2>Deals Total</h2>
+                        <strong><em style="font-size: 100px;">@itemSelling.DealsCount</em></strong>
+                    </div>
+                    <div class="col text-center">
+                        <h2>Offers Total</h2>
+                        <strong><em style="font-size: 100px;">@itemSelling.OffersCount</em></strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-5 border rounded p-2 mt-3 text-center">
+                <h1 class="my-auto">Worst Customer</h1>
+            </div>
+        </div>
+        <div class="row align-items-start border rounded p-3 mt-3 mb-5">
+            <div class="col-md-4 m-5">
+                <img class="rounded ihar-cursor" style="width: 400px; height: 400px;" @onclick="(() => RedirectToUser(userStat.First().User.UUID))" src=@($"{UserService.BaseUrl}/UsersPictures/{userStat.First().User.IdPicture}")>
+            </div>
+            <div class="col-md-7">
+                <h1 class="card-title">@userStat.First().User.Username</h1>
+                <hr>
+                <div class="row">
+                    <div class="col text-center">
+                        <h2>Current Deals:</h2>
+                        <strong><em style="font-size: 100px;">@userStat.First().TotalDeals</em></strong>
+                    </div>
+                    <div class="col text-center">
+                        <h2>Current Offers:</h2>
+                        <strong><em style="font-size: 100px;">@userStat.First().TotalDealOffers</em></strong>
+                    </div>
+                    <div class="col text-center">
+                        <h2>Transaction:</h2>
+                        <strong><em style="font-size: 100px;">@userStat.First().TotalTransactions</em></strong>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row p-3">
+                <div style="max-height: 400px; overflow-y: auto;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>UUID</th>
+                                <th>Username</th>
+                                <th>Current Deals</th>
+                                <th>Current Offers</th>
+                                <th>Transactions</th>
+                            </tr>
+                        </thead>
+                        <tbody style="font-size: 24px;">
+                            @foreach (var user in userStat.Skip(1))
+                            {
+                                <tr>
+                                    <td class="ihar-link" @onclick="(() => RedirectToUser(user.User.UUID))">@user.User.UUID</td>
+                                    <td>@user.User.Username</td>
+                                    <td>@user.TotalDeals</td>
+                                    <td>@user.TotalDealOffers</td>
+                                    <td>@user.TotalTransactions</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    List<UsersBuyingsSumDto> usersBuyings;
+    ItemSellingsDto itemSelling;
+    List<UserStatDto> userStat;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (UserService.IsUserLoggedIn)
+        {
+            await LoadUsersBuyings();
+            await LoadItemSellings();
+            await LoadUserStat();
+        }
+        else
+        {
+            await MessageService.ShowMessage("You need too authorize first!");
+        }
+    }
+    private async Task LoadUsersBuyings()
+    {
+        HttpResponseMessage response = await UserService.HttpClient.GetAsync($"{UserService.BaseUrl}/statistics/topUserBuyings");
+        if (response.IsSuccessStatusCode)
+        {
+            usersBuyings = await response.Content.ReadFromJsonAsync<List<UsersBuyingsSumDto>>();
+        }
+    }
+    private async Task LoadItemSellings()
+    {
+        HttpResponseMessage response = await UserService.HttpClient.GetAsync($"{UserService.BaseUrl}/statistics/topSellingItem");
+        if (response.IsSuccessStatusCode)
+        {
+            itemSelling = await response.Content.ReadFromJsonAsync<ItemSellingsDto>();
+        }
+    }
+    private async Task LoadUserStat()
+    {
+        HttpResponseMessage response = await UserService.HttpClient.GetAsync($"{UserService.BaseUrl}/statistics/topWorstUsers");
+        if (response.IsSuccessStatusCode)
+        {
+            userStat = await response.Content.ReadFromJsonAsync<List<UserStatDto>>();
+        }
+    }
+
+    private void RedirectToItem(int id)
+    {
+        NavManager.NavigateTo($"/items/{id}");
+    }
+    private void RedirectToUser(string uuid)
+    {
+        NavManager.NavigateTo($"/users/{uuid}");
+    }
+}

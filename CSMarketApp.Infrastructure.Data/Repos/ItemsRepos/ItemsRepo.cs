@@ -44,6 +44,7 @@ namespace CSMarketApp.Infrastructure.Data.Repos.ItemsRepos
                 .Include(i => i.ItemsType.ItemsClass)
                 .Include(i => i.ItemsType.ItemsClass.ItemsSubClass)
                 .Include(i => i.Deals)
+                .ThenInclude(i => i.DealOffers)
                 .ToListAsync();
         }
 

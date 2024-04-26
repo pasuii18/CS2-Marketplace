@@ -435,7 +435,7 @@ namespace CSMarketApp.Infrastructure.Data
             AddDbRows<TypeCharacteristics>(modelBuilder,
             new TypeCharacteristics { IdTypeCharacteristic = 1, TypeCharacteristicName = "Release Year" },
             new TypeCharacteristics { IdTypeCharacteristic = 2, TypeCharacteristicName = "Release Season" },
-            new TypeCharacteristics { IdTypeCharacteristic = 3, TypeCharacteristicName = "Stat-track" }
+            new TypeCharacteristics { IdTypeCharacteristic = 3, TypeCharacteristicName = "Stat-Track" }
             );
 
             AddDbRows<ItemsTypeCharacteristics>(modelBuilder,
